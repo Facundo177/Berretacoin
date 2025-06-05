@@ -1,49 +1,64 @@
 package aed;
 
+import java.util.ArrayList;
+
 public class Bloque {
-    private Transaccion[] transaccionesOrdenadasPorId;
+    private TransaccionActiva[] transaccionesOrdenadasPorId;
     private ColaDePrioridad<Transaccion> transaccionesOrdenadasPorMonto;
-    private int montoMedio;
+    private float montoMedio;
 
     public Bloque(Transaccion[] transacciones){
-        Transaccion[] copia = new Transaccion[transacciones.length];
-        for (int i = 0; i < transacciones.length; i++) {
-            copia[i] = transacciones[i].copiar();
-        }
-        this.transaccionesOrdenadasPorId = copia;
-        this.transaccionesOrdenadasPorMonto = new ColaDePrioridad<Transaccion>(copia);
-        if (transacciones.length > 0){
+
+        
+        // faltan las de creacion
+
+
+        if (transacciones.length <= 0){
+            this.montoMedio = 0;
+            this.transaccionesOrdenadasPorId = new TransaccionActiva[0];
+            this.transaccionesOrdenadasPorMonto = new ColaDePrioridad<Transaccion>();
+        } else{
+            Transaccion[] copia = new Transaccion[transacciones.length];
+            this.transaccionesOrdenadasPorId = new TransaccionActiva[transacciones.length];
             int suma = 0;
-            for (Transaccion t : transacciones){
-                suma += t.monto();
+            for (int i = 0; i < transacciones.length; i++) {
+                copia[i] = transacciones[i].copiar();
+                this.transaccionesOrdenadasPorId[i] = new TransaccionActiva(copia[i]);
+                suma += transacciones[i].monto();
             }
             this.montoMedio = suma / transacciones.length;
-        } else{
-            this.montoMedio = 0;
+            this.transaccionesOrdenadasPorMonto = new ColaDePrioridad<Transaccion>(copia);
         }
     }
     
     public Transaccion[] transaccionesOrdenadasPorId(){
-
-        // deberia hacer la copia acá y no en la Berretacoin
-
-        return this.transaccionesOrdenadasPorId;
+        ArrayList<Transaccion> copia = new ArrayList<>(transaccionesOrdenadasPorId.length);
+        for (TransaccionActiva t : transaccionesOrdenadasPorId) {
+            if (t.sigueActiva()) {
+                copia.add(t.transaccion().copiar());
+            }
+        }
+        return (Transaccion[]) copia.toArray();
     }
 
     public int montoMedio(){
-        return this.montoMedio;
+        return (int) this.montoMedio;
     }
 
     public Transaccion mayorTransaccion(){
         return this.transaccionesOrdenadasPorMonto.maximo();
     }
 
-    public void borrarMayorTransaccion(){
+    public Transaccion borrarMayorTransaccion(){
+        // actualizo monto medio y transacciones por monto
+        int n = this.transaccionesOrdenadasPorMonto.size();
         Transaccion maxima = this.transaccionesOrdenadasPorMonto.sacarMaximo();
-        int id = maxima.id();
-        
-        // deberia usar un ArrayList para hacer más fácil el borrado
-        this.transaccionesOrdenadasPorId.remove(id);
+        this.montoMedio = (this.montoMedio*n - maxima.monto())/(n-1);
+
+        // actualizo las transacciones por id
+        this.transaccionesOrdenadasPorId[maxima.id()].borradoLogico();
+
+        return maxima;
     }
     
 }

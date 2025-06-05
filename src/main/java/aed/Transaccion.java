@@ -13,7 +13,7 @@ public class Transaccion implements Comparable<Transaccion> {
         this.monto = monto;
     }
 
-    // Si lo que paso por parámetro es mayor, devuelve un negativo
+    // Es positivo si el monto el mayor que el de otro, o en caso de empate, si el id es mayor que el otro
     @Override
     public int compareTo(Transaccion otro) {
         if(otro == null){
@@ -21,11 +21,10 @@ public class Transaccion implements Comparable<Transaccion> {
             throw new IllegalArgumentException(mensajeDeError);
         }
         if ((this.monto - otro.monto) == 0){
-            return otro.id - this.id;
+            return this.id - otro.id;
         }
         return this.monto - otro.monto;
     }
-
 
     @Override
     public boolean equals(Object otro){
@@ -41,7 +40,6 @@ public class Transaccion implements Comparable<Transaccion> {
                                 (this.monto == ts.monto);
             return sonIguales;
         }
-
     }
 
     public int monto() {
