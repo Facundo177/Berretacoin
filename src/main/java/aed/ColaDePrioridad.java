@@ -25,16 +25,8 @@ public class ColaDePrioridad<T extends Comparable<T>> {
             this.heap.add(elem);
         } else{
             this.heap.add(elem);
-            int posElem = this.heap.indexOf(elem);
-            int posPadre = this.padre(posElem);
-            T padre = this.heap.get(posPadre);
-            while (elem.compareTo(padre) > 0) {
-                this.heap.set(posPadre, elem);
-                this.heap.set(posElem, padre); 
-                posElem = posPadre;
-                posPadre = this.padre(posElem);
-                padre = this.heap.get(posPadre);
-            }
+            int posElem = this.heap.size()-1;
+            siftUp(posElem);
         }
     }
 
@@ -79,6 +71,21 @@ public class ColaDePrioridad<T extends Comparable<T>> {
         }
     }
 
+    private void siftUp(int posElem){
+        int length = this.heap.size();
+        if (posElem >= length || posElem <= 0){
+            return;
+        }
+        T elem = this.heap.get(posElem);
+        int posPadre = this.padre(posElem);
+        T padre = this.heap.get(posPadre);
+        if (elem.compareTo(padre) > 0) {
+            this.heap.set(posElem, padre);
+            this.heap.set(posPadre, elem);
+            siftUp(posPadre);
+        }
+    }
+
     public T sacarMaximo(){
         int posMax = 0;
         T max = this.heap.get(posMax);
@@ -89,33 +96,6 @@ public class ColaDePrioridad<T extends Comparable<T>> {
         
         return max;
     }
-
-    // private void ordenar(int i){
-    //     int hijoDerecho = this.hijoDerecho(i);
-    //     int hijoIzquierdo = this.hijoIzquierdo(i);
-    //     int length = this.heap.size();
-    //     if (i >= length) {
-    //         return;  
-    //     } 
-    //     T valor = this.heap.get(i);
-    //     if (hijoDerecho >= length && hijoIzquierdo >= length){
-    //         return;
-    //     } else if (hijoDerecho >= length) {
-    //         if (valor.compareTo(this.heap.get(hijoIzquierdo)) < 0){
-    //             T izq = this.heap.get(hijoIzquierdo);
-    //             this.heap.set(i, izq);
-    //             this.heap.set(hijoIzquierdo, valor); 
-    //         }
-    //     } else {
-    //         if (valor.compareTo(this.heap.get(hijoDerecho)) < 0){
-    //             T der = this.heap.get(hijoDerecho);
-    //             this.heap.set(i, der);
-    //             this.heap.set(hijoDerecho, valor); 
-    //         }
-    //     }
-    //     ordenar(hijoDerecho);
-    //     ordenar(hijoIzquierdo);
-    // }
 
     public boolean vacia(){
         return this.heap.isEmpty();

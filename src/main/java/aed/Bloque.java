@@ -8,11 +8,6 @@ public class Bloque {
     private float montoMedio;
 
     public Bloque(Transaccion[] transacciones){
-
-        
-        // faltan las de creacion
-
-
         if (transacciones.length <= 0){
             this.montoMedio = 0;
             this.transaccionesOrdenadasPorId = new TransaccionActiva[0];
@@ -24,9 +19,13 @@ public class Bloque {
             for (int i = 0; i < transacciones.length; i++) {
                 copia[i] = transacciones[i].copiar();
                 this.transaccionesOrdenadasPorId[i] = new TransaccionActiva(copia[i]);
-                suma += transacciones[i].monto();
+                suma += transacciones[i].id_comprador() == 0 ? 0 : transacciones[i].monto();
             }
-            this.montoMedio = suma / transacciones.length;
+            if (transacciones[0].id_comprador() == 0){
+                this.montoMedio = transacciones.length == 1 ? suma : suma/(transacciones.length-1);
+            } else{
+                this.montoMedio = suma/transacciones.length;
+            }
             this.transaccionesOrdenadasPorMonto = new ColaDePrioridad<Transaccion>(copia);
         }
     }
@@ -38,11 +37,15 @@ public class Bloque {
                 copia.add(t.transaccion().copiar());
             }
         }
-        return (Transaccion[]) copia.toArray();
+        Transaccion[] res = new Transaccion[copia.size()];
+        for (int i = 0; i < copia.size(); i++){
+            res[i] = copia.get(i);
+        }
+        return res;
     }
 
     public int montoMedio(){
-        return (int) this.montoMedio;
+        return Math.round(this.montoMedio);
     }
 
     public Transaccion mayorTransaccion(){
@@ -50,8 +53,11 @@ public class Bloque {
     }
 
     public Transaccion borrarMayorTransaccion(){
+        boolean hayCreacion = this.transaccionesOrdenadasPorId[0].sigueActiva() ?
+                            this.transaccionesOrdenadasPorId[0].transaccion().id_comprador() == 0 :
+                            false;
         // actualizo monto medio y transacciones por monto
-        int n = this.transaccionesOrdenadasPorMonto.size();
+        int n = hayCreacion ? this.transaccionesOrdenadasPorMonto.size()-1 : this.transaccionesOrdenadasPorMonto.size();
         Transaccion maxima = this.transaccionesOrdenadasPorMonto.sacarMaximo();
         this.montoMedio = (this.montoMedio*n - maxima.monto())/(n-1);
 
@@ -59,6 +65,9 @@ public class Bloque {
         this.transaccionesOrdenadasPorId[maxima.id()].borradoLogico();
 
         return maxima;
+
+
+        // falla actualizar monto medio
     }
     
 }

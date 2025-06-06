@@ -14,8 +14,12 @@ public class Berretacoin {
         this.blockchain.agregarAtras(bloque);
 
         for (Transaccion t : transacciones) {
-            this.saldos.actualizarSaldo(t.id_comprador(), -t.monto());
-            this.saldos.actualizarSaldo(t.id_vendedor(), t.monto());
+            if (t.id_comprador() == 0){
+                this.saldos.actualizarSaldo(t.id_vendedor(), t.monto());
+            } else {
+                this.saldos.actualizarSaldo(t.id_comprador(), -t.monto());
+                this.saldos.actualizarSaldo(t.id_vendedor(), t.monto());
+            }
         }
     }
 
@@ -39,8 +43,13 @@ public class Berretacoin {
         Bloque ultimoBloque = this.blockchain.obtenerUltimo();
         // actualizo el monto medio y borro la transaccion
         Transaccion t = ultimoBloque.borrarMayorTransaccion();
-        // el vendedor pierde el monto ganado en la transaccion, "se lo lleva el hacker"
-        saldos.actualizarSaldo(t.id_vendedor(), -t.monto());
+        // se restauran los montos
+        if (t.id_comprador() == 0){
+            saldos.actualizarSaldo(t.id_vendedor(), -t.monto());
+        } else{
+            saldos.actualizarSaldo(t.id_vendedor(), -t.monto());
+            saldos.actualizarSaldo(t.id_comprador(), t.monto());
+        }
     }
 
 }
