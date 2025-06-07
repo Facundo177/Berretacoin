@@ -1,77 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="aed.BerretacoinTests" time="9.839" tests="15" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="aed.BerretacoinTests" time="3.186" tests="15" errors="0" skipped="0" failures="0">
   <properties>
-    <property name="java.specification.version" value="24"/>
+    <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\Mario\Desktop\Algoritmos 2 UBA\tp2\estudiantes\target\test-classes;C:\Users\Mario\Desktop\Algoritmos 2 UBA\tp2\estudiantes\target\classes;C:\Users\Mario\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\Mario\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\Mario\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Mario\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\Mario\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\Mario\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
-    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.class.path" value="C:\Users\Cami\Documents\Bibliografia\Berretacoin\target\test-classes;C:\Users\Cami\Documents\Bibliografia\Berretacoin\target\classes;C:\Users\Cami\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\Cami\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\Cami\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Cami\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\Cami\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\Cami\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
-    <property name="java.vendor.url" value="https://java.oracle.com/"/>
-    <property name="user.timezone" value="America/Cayenne"/>
-    <property name="os.name" value="Windows 10"/>
-    <property name="java.vm.specification.version" value="24"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="America/Buenos_Aires"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="21"/>
     <property name="user.country" value="AR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-24\bin"/>
-    <property name="sun.java.command" value="C:\Users\Mario\AppData\Local\Temp\surefire9194541871967958669\surefirebooter-20250607143825874_3.jar C:\Users\Mario\AppData\Local\Temp\surefire9194541871967958669 2025-06-07T14-38-25_568-jvmRun1 surefire-20250607143825874_1tmp surefire_0-20250607143825874_2tmp"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.1.12-hotspot\bin"/>
+    <property name="sun.java.command" value="C:\Users\Cami\AppData\Local\Temp\surefire4968523882978606592\surefirebooter-20250607144823748_3.jar C:\Users\Cami\AppData\Local\Temp\surefire4968523882978606592 2025-06-07T14-48-23_606-jvmRun1 surefire-20250607144823748_1tmp surefire_0-20250607144823748_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\Mario\Desktop\Algoritmos 2 UBA\tp2\estudiantes\target\test-classes;C:\Users\Mario\Desktop\Algoritmos 2 UBA\tp2\estudiantes\target\classes;C:\Users\Mario\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\Mario\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\Mario\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Mario\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\Mario\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\Mario\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\Cami\Documents\Bibliografia\Berretacoin\target\test-classes;C:\Users\Cami\Documents\Bibliografia\Berretacoin\target\classes;C:\Users\Cami\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\Cami\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\Cami\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Cami\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\Cami\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\Cami\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="C:\Users\Mario"/>
+    <property name="user.home" value="C:\Users\Cami"/>
     <property name="user.language" value="es"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.version.date" value="2025-03-18"/>
-    <property name="java.home" value="C:\Program Files\Java\jdk-24"/>
+    <property name="java.version.date" value="2023-10-17"/>
+    <property name="java.home" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.1.12-hotspot"/>
     <property name="file.separator" value="\"/>
-    <property name="basedir" value="C:\Users\Mario\Desktop\Algoritmos 2 UBA\tp2\estudiantes"/>
-    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="basedir" value="C:\Users\Cami\Documents\Bibliografia\Berretacoin"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Mario\AppData\Local\Temp\surefire9194541871967958669\surefirebooter-20250607143825874_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Cami\AppData\Local\Temp\surefire4968523882978606592\surefirebooter-20250607144823748_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="24+36-3646"/>
-    <property name="user.name" value="Mario"/>
+    <property name="java.runtime.version" value="21.0.1+12-LTS"/>
+    <property name="user.name" value="Cami"/>
     <property name="stdout.encoding" value="Cp1252"/>
     <property name="path.separator" value=";"/>
     <property name="os.version" value="10.0"/>
-    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
-    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
-    <property name="maven.ext.class.path" value="C:\Users\Mario\.vscode\extensions\oracle.oracle-java-24.0.0\nbcode\java\maven-nblib\netbeans-eventspy.jar"/>
-    <property name="localRepository" value="C:\Users\Mario\.m2\repository"/>
-    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
-    <property name="java.io.tmpdir" value="C:\Users\Mario\AppData\Local\Temp\"/>
-    <property name="java.version" value="24"/>
-    <property name="user.dir" value="C:\Users\Mario\Desktop\Algoritmos 2 UBA\tp2\estudiantes"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-21.0.1+12"/>
+    <property name="maven.ext.class.path" value="C:\Users\Cami\.vscode\extensions\oracle.oracle-java-24.0.0\nbcode\java\maven-nblib\netbeans-eventspy.jar"/>
+    <property name="localRepository" value="C:\Users\Cami\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="C:\Users\Cami\AppData\Local\Temp\"/>
+    <property name="java.version" value="21.0.1"/>
+    <property name="user.dir" value="C:\Users\Cami\Documents\Bibliografia\Berretacoin"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="native.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-24\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\apache-maven-3.9.9\bin;C:\Program Files\Git\cmd;C:\Users\Mario\AppData\Local\Microsoft\WindowsApps;C:\Users\Mario\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Mario\AppData\Local\Programs\MiKTeX\miktex\bin\x64\;."/>
+    <property name="java.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.1.12-hotspot\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python38\Scripts\;C:\Python38\;C:\Program Files\Eclipse Adoptium\jdk-21.0.1.12-hotspot\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python38\Scripts\;C:\Python38\;C:\Program Files\Eclipse Adoptium\jdk-21.0.1.12-hotspot\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Users\Cami\AppData\Local\Microsoft\WindowsApps;C:\Users\Cami\AppData\Local\Programs\Python\Python311\Scripts;C:\Users\Cami\AppData\Local\Programs\Python\Python311;C:\ffmpeg\bin;C:\Users\Cami\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Cami\AppData\Roaming\cabal\bin;C:\tools\ghc-9.8.2\bin;C:\ghcup\bin;;C:\Users\Cami\Downloads\apache-maven-3.9.9-bin.zip\apache-maven-3.9.9\bin;C:\Users\Cami\AppData\Local\spicetify;."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
     <property name="stderr.encoding" value="Cp1252"/>
-    <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="java.vm.version" value="24+36-3646"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="21.0.1+12-LTS"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
-    <property name="java.class.version" value="68.0"/>
+    <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="hackeoUnicaTransaccion" classname="aed.BerretacoinTests" time="0.241"/>
-  <testcase name="maximoTenedorEsElMinimoCuandoNuevo" classname="aed.BerretacoinTests" time="0.006"/>
-  <testcase name="hackeoTotalDeBloque" classname="aed.BerretacoinTests" time="0.011"/>
-  <testcase name="empatesEnTransaccionMayorValor" classname="aed.BerretacoinTests" time="0.009"/>
-  <testcase name="empatesEnMaximoTenedor" classname="aed.BerretacoinTests" time="0.004"/>
-  <testcase name="agregarVariosBloques" classname="aed.BerretacoinTests" time="0.005"/>
-  <testcase name="multiplesBloquesPequenos" classname="aed.BerretacoinTests" time="0.002"/>
-  <testcase name="hackearVariasVeces" classname="aed.BerretacoinTests" time="0.002"/>
-  <testcase name="agregarBloque" classname="aed.BerretacoinTests" time="0.005"/>
-  <testcase name="bloqueConSoloTransaccionDeCreacion" classname="aed.BerretacoinTests" time="0.014"/>
-  <testcase name="hackearConVariosBloques" classname="aed.BerretacoinTests" time="0.002"/>
-  <testcase name="testStress" classname="aed.BerretacoinTests" time="9.21"/>
-  <testcase name="hackearConUnBloque" classname="aed.BerretacoinTests" time="0.002"/>
-  <testcase name="hackeoAfectaSaldos" classname="aed.BerretacoinTests" time="0.001"/>
-  <testcase name="unSoloUsuario" classname="aed.BerretacoinTests" time="0.001"/>
+  <testcase name="hackeoUnicaTransaccion" classname="aed.BerretacoinTests" time="0.116"/>
+  <testcase name="maximoTenedorEsElMinimoCuandoNuevo" classname="aed.BerretacoinTests" time="0.001"/>
+  <testcase name="hackeoTotalDeBloque" classname="aed.BerretacoinTests" time="0.002"/>
+  <testcase name="empatesEnTransaccionMayorValor" classname="aed.BerretacoinTests" time="0.003"/>
+  <testcase name="empatesEnMaximoTenedor" classname="aed.BerretacoinTests" time="0.002"/>
+  <testcase name="agregarVariosBloques" classname="aed.BerretacoinTests" time="0.001"/>
+  <testcase name="multiplesBloquesPequenos" classname="aed.BerretacoinTests" time="0.001"/>
+  <testcase name="hackearVariasVeces" classname="aed.BerretacoinTests" time="0.001"/>
+  <testcase name="agregarBloque" classname="aed.BerretacoinTests" time="0.002"/>
+  <testcase name="bloqueConSoloTransaccionDeCreacion" classname="aed.BerretacoinTests" time="0"/>
+  <testcase name="hackearConVariosBloques" classname="aed.BerretacoinTests" time="0.001"/>
+  <testcase name="testStress" classname="aed.BerretacoinTests" time="2.993"/>
+  <testcase name="hackearConUnBloque" classname="aed.BerretacoinTests" time="0"/>
+  <testcase name="hackeoAfectaSaldos" classname="aed.BerretacoinTests" time="0"/>
+  <testcase name="unSoloUsuario" classname="aed.BerretacoinTests" time="0"/>
 </testsuite>

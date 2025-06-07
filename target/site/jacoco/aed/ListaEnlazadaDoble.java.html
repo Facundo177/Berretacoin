@@ -29,7 +29,7 @@ public class ListaEnlazadaDoble&lt;T&gt; {
 <span class="nc bnc" id="L29" title="All 2 branches missed.">        if (this.primero == null) {</span>
 <span class="nc" id="L30">            this.primero = nuevo;</span>
 <span class="nc" id="L31">            this.ultimo = nuevo;</span>
-<span class="nc" id="L32">        } else {</span>
+        } else {
 <span class="nc" id="L33">            nuevo.sig = this.primero;</span>
 <span class="nc" id="L34">            this.primero.ant = nuevo;</span>
 <span class="nc" id="L35">            this.primero = nuevo;</span>
@@ -43,7 +43,7 @@ public class ListaEnlazadaDoble&lt;T&gt; {
 <span class="fc bfc" id="L43" title="All 2 branches covered.">        if (this.primero == null) {</span>
 <span class="fc" id="L44">            this.primero = nuevo;</span>
 <span class="fc" id="L45">            this.ultimo = nuevo;</span>
-<span class="fc" id="L46">        } else {</span>
+        } else {
 <span class="fc" id="L47">            nuevo.ant = this.ultimo;</span>
 <span class="fc" id="L48">            this.ultimo.sig = nuevo;</span>
 <span class="fc" id="L49">            this.ultimo = nuevo;</span>
@@ -86,7 +86,7 @@ public class ListaEnlazadaDoble&lt;T&gt; {
 <span class="nc" id="L86">            this.primero = nodo.sig;</span>
 <span class="nc" id="L87">            this.primero.ant = null;</span>
 <span class="nc" id="L88">            nodo.sig = null;</span>
-<span class="nc" id="L89">        } else{</span>
+        } else{
 <span class="nc" id="L90">            this.primero = null;</span>
 <span class="nc" id="L91">            this.ultimo = null;</span>
         }
@@ -111,7 +111,7 @@ public class ListaEnlazadaDoble&lt;T&gt; {
 <span class="fc" id="L111">            this.primero = nodo.sig;</span>
 <span class="fc" id="L112">            this.primero.ant = null;</span>
 <span class="fc" id="L113">            nodo.sig = null;</span>
-<span class="fc" id="L114">        } else{</span>
+        } else{
 <span class="fc" id="L115">            this.primero = null;</span>
 <span class="fc" id="L116">            this.ultimo = null;</span>
         }
