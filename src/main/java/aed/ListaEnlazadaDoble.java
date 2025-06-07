@@ -1,14 +1,16 @@
 package aed;
 
-public class ListaEnlazadaDoble<T> implements Secuencia<T> {
+public class ListaEnlazadaDoble<T> {
     private Nodo primero;
     private Nodo ultimo;
     private int size;
 
-    private class Nodo {
+    public class Nodo {
         T valor;
         Nodo sig;
         Nodo ant;
+        int handle;
+        
 
         Nodo(T v) {valor = v;}
     }
@@ -23,7 +25,7 @@ public class ListaEnlazadaDoble<T> implements Secuencia<T> {
         return this.size;
     }
 
-    public void agregarAdelante(T elem) {
+    public Nodo agregarAdelante(T elem) {
         Nodo nuevo = new Nodo(elem);
         if (this.primero == null) {
             this.primero = nuevo;
@@ -34,9 +36,10 @@ public class ListaEnlazadaDoble<T> implements Secuencia<T> {
             this.primero = nuevo;
         }
         this.size++;
+        return nuevo;
     }
 
-    public void agregarAtras(T elem) {
+    public Nodo agregarAtras(T elem) {
         Nodo nuevo = new Nodo(elem);
         if (this.primero == null) {
             this.primero = nuevo;
@@ -47,6 +50,7 @@ public class ListaEnlazadaDoble<T> implements Secuencia<T> {
             this.ultimo = nuevo;
         }
         this.size++;
+        return nuevo;
     }
 
     public T obtener(int i) {

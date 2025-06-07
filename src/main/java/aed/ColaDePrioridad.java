@@ -9,15 +9,32 @@ public class ColaDePrioridad<T extends Comparable<T>> {
         this.heap = new ArrayList<T>();
     }
 
+    public ColaDePrioridad(int capacidadInicial){
+        this.heap = new ArrayList<T>(capacidadInicial);
+    }
+
     public ColaDePrioridad(T[] s){
         this.heap = new ArrayList<T>(s.length);
-        for (T elem : s) {
-            this.agregar(elem);
+        for (int i = 0; i < s.length; i++) {
+            this.heap.set(i, s[i]);
+        }
+        this.floyd();
+    }
+
+    public void floyd(){
+        // Algoritmo de Floyd -> O(n)
+        // hojas van desde n/2 hasta n-1 (se pueden ignorar) y ordeno los nodos internos
+        for (int i = this.heap.size()/2; i >= 0; i--) {
+            this.siftDown(i);
         }
     }
 
+    public void agregarRapido(T elem){
+        this.heap.add(elem);
+    }
+
     public T maximo(){
-        return this.heap.getFirst();
+        return this.heap.get(0);
     }
 
     public void agregar(T elem){
@@ -89,9 +106,9 @@ public class ColaDePrioridad<T extends Comparable<T>> {
     public T sacarMaximo(){
         int posMax = 0;
         T max = this.heap.get(posMax);
-        T ultimo = this.heap.getLast();
+        T ultimo = this.heap.get(this.heap.size()-1);
         this.heap.set(posMax, ultimo);
-        this.heap.removeLast();
+        this.heap.remove(this.heap.size()-1);
         this.siftDown(posMax);
         
         return max;
