@@ -16,7 +16,7 @@ public class Berretacoin {
 <span class="fc bfc" id="L16" title="All 2 branches covered.">        for (Transaccion t : transacciones) {           // O(n * logP)</span>
 <span class="fc bfc" id="L17" title="All 2 branches covered.">            if (t.id_comprador() == 0){</span>
 <span class="fc" id="L18">                this.saldos.actualizarSaldo(t.id_vendedor(), t.monto());</span>
-<span class="fc" id="L19">            } else {</span>
+            } else {
 <span class="fc" id="L20">                this.saldos.actualizarSaldo(t.id_comprador(), -t.monto());</span>
 <span class="fc" id="L21">                this.saldos.actualizarSaldo(t.id_vendedor(), t.monto());</span>
             }
@@ -46,7 +46,7 @@ public class Berretacoin {
         // actualizo saldos
 <span class="fc bfc" id="L47" title="All 2 branches covered.">        if (t.id_comprador() == 0) {</span>
 <span class="fc" id="L48">            saldos.actualizarSaldo(t.id_vendedor(), -t.monto());    // O(logP)</span>
-<span class="fc" id="L49">        } else {</span>
+        } else {
 <span class="fc" id="L50">            saldos.actualizarSaldo(t.id_comprador(), t.monto());    // O(logP)</span>
 <span class="fc" id="L51">            saldos.actualizarSaldo(t.id_vendedor(), -t.monto());    // O(logP)</span>
         }

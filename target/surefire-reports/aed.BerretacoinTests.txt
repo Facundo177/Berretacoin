@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: aed.BerretacoinTests
 -------------------------------------------------------------------------------
-Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.839 s - in aed.BerretacoinTests
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.186 s - in aed.BerretacoinTests
