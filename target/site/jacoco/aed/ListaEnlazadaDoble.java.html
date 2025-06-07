@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ListaEnlazadaDoble.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp2</a> &gt; <a href="index.source.html" class="el_package">aed</a> &gt; <span class="el_source">ListaEnlazadaDoble.java</span></div><h1>ListaEnlazadaDoble.java</h1><pre class="source lang-java linenums">package aed;
+
+public class ListaEnlazadaDoble&lt;T&gt; {
+    private Nodo primero;
+    private Nodo ultimo;
+    private int size;
+
+    public class Nodo {
+        T valor;
+        Nodo sig;
+        Nodo ant;
+        NodoHeap handle;
+        
+<span class="fc" id="L14">        Nodo(T v) {valor = v;}</span>
+    }
+
+<span class="fc" id="L17">    public ListaEnlazadaDoble() {</span>
+<span class="fc" id="L18">        this.primero = null;</span>
+<span class="fc" id="L19">        this.ultimo = null;</span>
+<span class="fc" id="L20">        this.size = 0;</span>
+<span class="fc" id="L21">    }</span>
+
+    public int longitud() {
+<span class="fc" id="L24">        return this.size;</span>
+    }
+
+    public Nodo agregarAdelante(T elem) {
+<span class="nc" id="L28">        Nodo nuevo = new Nodo(elem);</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if (this.primero == null) {</span>
+<span class="nc" id="L30">            this.primero = nuevo;</span>
+<span class="nc" id="L31">            this.ultimo = nuevo;</span>
+<span class="nc" id="L32">        } else {</span>
+<span class="nc" id="L33">            nuevo.sig = this.primero;</span>
+<span class="nc" id="L34">            this.primero.ant = nuevo;</span>
+<span class="nc" id="L35">            this.primero = nuevo;</span>
+        }
+<span class="nc" id="L37">        this.size++;</span>
+<span class="nc" id="L38">        return nuevo;</span>
+    }
+
+    public Nodo agregarAtras(T elem) {
+<span class="fc" id="L42">        Nodo nuevo = new Nodo(elem);</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (this.primero == null) {</span>
+<span class="fc" id="L44">            this.primero = nuevo;</span>
+<span class="fc" id="L45">            this.ultimo = nuevo;</span>
+<span class="fc" id="L46">        } else {</span>
+<span class="fc" id="L47">            nuevo.ant = this.ultimo;</span>
+<span class="fc" id="L48">            this.ultimo.sig = nuevo;</span>
+<span class="fc" id="L49">            this.ultimo = nuevo;</span>
+        }
+<span class="fc" id="L51">        this.size++;</span>
+<span class="fc" id="L52">        return nuevo;</span>
+    }
+
+    public T obtener(int i) {
+<span class="nc" id="L56">        int contador = 0;</span>
+<span class="nc" id="L57">        Nodo actual = this.primero;</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        while (contador &lt; i) {</span>
+<span class="nc" id="L59">            contador++;</span>
+<span class="nc" id="L60">            actual = actual.sig;</span>
+        }
+<span class="nc" id="L62">        return actual.valor;</span>
+    }
+
+    public T obtenerUltimo() {
+<span class="fc" id="L66">        return this.ultimo.valor;</span>
+    }
+
+    public void eliminar(int i){
+<span class="nc" id="L70">        int contador = 0;</span>
+<span class="nc" id="L71">        Nodo nodo = this.primero;</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        while (contador &lt; i) {</span>
+<span class="nc" id="L73">            contador++;</span>
+<span class="nc" id="L74">            nodo = nodo.sig;</span>
+        }
+<span class="nc bnc" id="L76" title="All 4 branches missed.">        if (nodo.ant != null &amp;&amp; nodo.sig != null){</span>
+<span class="nc" id="L77">            nodo.ant.sig = nodo.sig;</span>
+<span class="nc" id="L78">            nodo.sig.ant = nodo.ant;</span>
+<span class="nc" id="L79">            nodo.ant = null;</span>
+<span class="nc" id="L80">            nodo.sig = null;</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        } else if (nodo.ant != null){</span>
+<span class="nc" id="L82">            this.ultimo = nodo.ant;</span>
+<span class="nc" id="L83">            this.ultimo.sig = null;</span>
+<span class="nc" id="L84">            nodo.ant = null;</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        } else if (nodo.sig != null) {</span>
+<span class="nc" id="L86">            this.primero = nodo.sig;</span>
+<span class="nc" id="L87">            this.primero.ant = null;</span>
+<span class="nc" id="L88">            nodo.sig = null;</span>
+<span class="nc" id="L89">        } else{</span>
+<span class="nc" id="L90">            this.primero = null;</span>
+<span class="nc" id="L91">            this.ultimo = null;</span>
+        }
+
+<span class="nc" id="L94">        this.size--;</span>
+<span class="nc" id="L95">    }</span>
+
+    public void eliminarNodo(Nodo nodo){
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if (nodo == null){</span>
+<span class="nc" id="L99">            return;</span>
+        }
+<span class="fc bfc" id="L101" title="All 4 branches covered.">        if (nodo.ant != null &amp;&amp; nodo.sig != null){</span>
+<span class="fc" id="L102">            nodo.ant.sig = nodo.sig;</span>
+<span class="fc" id="L103">            nodo.sig.ant = nodo.ant;</span>
+<span class="fc" id="L104">            nodo.ant = null;</span>
+<span class="fc" id="L105">            nodo.sig = null;</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        } else if (nodo.ant != null){</span>
+<span class="fc" id="L107">            this.ultimo = nodo.ant;</span>
+<span class="fc" id="L108">            this.ultimo.sig = null;</span>
+<span class="fc" id="L109">            nodo.ant = null;</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        } else if (nodo.sig != null) {</span>
+<span class="fc" id="L111">            this.primero = nodo.sig;</span>
+<span class="fc" id="L112">            this.primero.ant = null;</span>
+<span class="fc" id="L113">            nodo.sig = null;</span>
+<span class="fc" id="L114">        } else{</span>
+<span class="fc" id="L115">            this.primero = null;</span>
+<span class="fc" id="L116">            this.ultimo = null;</span>
+        }
+
+<span class="fc" id="L119">        this.size--;</span>
+<span class="fc" id="L120">    }</span>
+
+    public void modificarPosicion(int indice, T elem) {
+<span class="nc" id="L123">        int contador = 0;</span>
+<span class="nc" id="L124">        Nodo actual = this.primero;</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">        while (contador &lt; indice) {</span>
+<span class="nc" id="L126">            contador++;</span>
+<span class="nc" id="L127">            actual = actual.sig;</span>
+        }
+<span class="nc" id="L129">        actual.valor = elem;</span>
+<span class="nc" id="L130">    }</span>
+
+<span class="nc" id="L132">    public ListaEnlazadaDoble(ListaEnlazadaDoble&lt;T&gt; lista) {</span>
+<span class="nc" id="L133">        this.primero = new Nodo(lista.obtener(0));</span>
+<span class="nc" id="L134">        Nodo actual = this.primero;</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        for(int i = 0; i &lt; lista.longitud()-1; i++){</span>
+<span class="nc" id="L136">            actual.sig = new Nodo(lista.obtener(i+1));</span>
+<span class="nc" id="L137">            actual = actual.sig;</span>
+        }  
+<span class="nc" id="L139">        this.ultimo = actual;</span>
+<span class="nc" id="L140">        this.size = lista.longitud();</span>
+<span class="nc" id="L141">    }</span>
+    
+    @Override
+    public String toString() {
+<span class="nc" id="L145">        String res = &quot;[&quot;;</span>
+<span class="nc" id="L146">        Nodo actual = this.primero;</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        while (actual != null) {</span>
+<span class="nc" id="L148">            res += actual.valor + &quot;, &quot;;</span>
+<span class="nc" id="L149">            actual = actual.sig;</span>
+        }
+<span class="nc" id="L151">        res = res.substring(0, res.length() - 2) + &quot;]&quot;;</span>
+<span class="nc" id="L152">        return res;</span>
+    }
+
+    private class ListaIterador implements Iterador&lt;T&gt; {
+    	Nodo nodo;
+        
+<span class="fc" id="L158">        ListaIterador() {this.nodo = ListaEnlazadaDoble.this.primero;}</span>
+
+        public boolean haySiguiente() {
+<span class="fc bfc" id="L161" title="All 2 branches covered.">	        return nodo != null;</span>
+        }
+
+        public T siguiente() {
+<span class="fc" id="L165">            T elem = nodo.valor;</span>
+<span class="fc" id="L166">            nodo = nodo.sig;</span>
+<span class="fc" id="L167">            return elem;</span>
+        }
+    }
+
+    public Iterador&lt;T&gt; iterador() {
+<span class="fc" id="L172">	    return new ListaIterador();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Bloque.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp2</a> &gt; <a href="index.source.html" class="el_package">aed</a> &gt; <span class="el_source">Bloque.java</span></div><h1>Bloque.java</h1><pre class="source lang-java linenums">package aed;
+
+import aed.ListaEnlazadaDoble.Nodo;
+
+public class Bloque {
+    private ListaEnlazadaDoble&lt;Transaccion&gt; transaccionesOrdenadasPorId;
+    private ColaDePrioridad&lt;NodoHeap&gt; transaccionesOrdenadasPorMonto;
+    private int sumaMontos;
+    private int cantTransacciones; 
+
+<span class="fc" id="L11">    public Bloque(Transaccion[] transacciones){</span>
+<span class="pc bpc" id="L12" title="1 of 2 branches missed.">        if (transacciones.length &lt;= 0){</span>
+<span class="nc" id="L13">            this.sumaMontos = 0;</span>
+<span class="nc" id="L14">            this.cantTransacciones = 0;</span>
+<span class="nc" id="L15">            this.transaccionesOrdenadasPorId = new ListaEnlazadaDoble&lt;&gt;();</span>
+<span class="nc" id="L16">            this.transaccionesOrdenadasPorMonto = new ColaDePrioridad&lt;&gt;();</span>
+<span class="nc" id="L17">        } else{</span>
+<span class="fc" id="L18">            this.transaccionesOrdenadasPorId = new ListaEnlazadaDoble&lt;&gt;();</span>
+<span class="fc" id="L19">            this.transaccionesOrdenadasPorMonto = new ColaDePrioridad&lt;&gt;(transacciones.length);</span>
+<span class="fc" id="L20">            int sumaMontos = 0;</span>
+<span class="fc" id="L21">            int cantTransacciones = 0;</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">            for (int i = 0; i &lt; transacciones.length; i++) {                                // O(n)</span>
+<span class="fc" id="L23">                Transaccion t = transacciones[i].copiar();                                  // O(1)</span>
+<span class="fc" id="L24">                Nodo nodo = this.transaccionesOrdenadasPorId.agregarAtras(t);               // O(1)</span>
+<span class="fc" id="L25">                NodoHeap nodoHeap = new NodoHeap(t, nodo);                                  // O(1)</span>
+<span class="fc" id="L26">                nodo.handle = nodoHeap;                                                     // O(1)</span>
+<span class="fc" id="L27">                this.transaccionesOrdenadasPorMonto.agregarRapido(nodoHeap);                // O(1)</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">                sumaMontos += transacciones[i].id_comprador() == 0 ? 0 : transacciones[i].monto();</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">                cantTransacciones += transacciones[i].id_comprador() == 0 ? 0 : 1;</span>
+            }
+<span class="fc" id="L31">            this.sumaMontos = sumaMontos;</span>
+<span class="fc" id="L32">            this.cantTransacciones = cantTransacciones;</span>
+<span class="fc" id="L33">            this.transaccionesOrdenadasPorMonto.floyd();    // O(n)</span>
+        }
+<span class="fc" id="L35">    }</span>
+    
+    public Transaccion[] transaccionesOrdenadasPorId(){
+<span class="fc" id="L38">        Transaccion[] res = new Transaccion[this.transaccionesOrdenadasPorId.longitud()];</span>
+<span class="fc" id="L39">        Iterador&lt;Transaccion&gt; iterador = this.transaccionesOrdenadasPorId.iterador();</span>
+<span class="fc" id="L40">        int i = 0;</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        while (iterador.haySiguiente()) {</span>
+<span class="fc" id="L42">            res[i] = iterador.siguiente().copiar();</span>
+<span class="fc" id="L43">            i++;</span>
+        }
+<span class="fc" id="L45">        return res;</span>
+    }
+
+    public int montoMedio(){
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (this.cantTransacciones == 0){</span>
+<span class="fc" id="L50">            return 0;</span>
+        } else {
+<span class="fc" id="L52">            return this.sumaMontos/this.cantTransacciones;</span>
+        }
+    }
+
+    public Transaccion mayorTransaccion(){
+<span class="fc" id="L57">        return this.transaccionesOrdenadasPorMonto.maximo().transaccion;</span>
+    }
+
+    public Transaccion borrarMayorTransaccion(){
+        // Borro la transaccion de la cola de prioridad
+<span class="fc" id="L62">        NodoHeap nodoHeap = this.transaccionesOrdenadasPorMonto.sacarMaximo();</span>
+<span class="fc" id="L63">        Nodo nodoLista = nodoHeap.handle;</span>
+<span class="fc" id="L64">        Transaccion maxima = nodoHeap.transaccion;</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        this.sumaMontos -= maxima.id_comprador() == 0 ? 0 : maxima.monto();</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        this.cantTransacciones -= maxima.id_comprador() == 0 ? 0 : 1;</span>
+
+        // Borro la transaccion de la lista por id
+<span class="fc" id="L69">        this.transaccionesOrdenadasPorId.eliminarNodo(nodoLista);</span>
+
+<span class="fc" id="L71">        return maxima;</span>
+    }
+    
+}
+    
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

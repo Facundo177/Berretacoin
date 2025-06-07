@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Berretacoin.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp2</a> &gt; <a href="index.source.html" class="el_package">aed</a> &gt; <span class="el_source">Berretacoin.java</span></div><h1>Berretacoin.java</h1><pre class="source lang-java linenums">package aed;
+
+public class Berretacoin {
+    private ListaEnlazadaDoble&lt;Bloque&gt; blockchain;
+    private Saldos saldos;
+
+<span class="fc" id="L7">    public Berretacoin(int n_usuarios){</span>
+<span class="fc" id="L8">        this.blockchain = new ListaEnlazadaDoble&lt;&gt;();   // O(1)</span>
+<span class="fc" id="L9">        this.saldos = new Saldos(n_usuarios);           // O(P)</span>
+<span class="fc" id="L10">    }</span>
+
+    public void agregarBloque(Transaccion[] transacciones){
+<span class="fc" id="L13">        Bloque bloque = new Bloque(transacciones);      // O(n)</span>
+<span class="fc" id="L14">        this.blockchain.agregarAtras(bloque);           // O(1)</span>
+
+<span class="fc bfc" id="L16" title="All 2 branches covered.">        for (Transaccion t : transacciones) {           // O(n * logP)</span>
+<span class="fc bfc" id="L17" title="All 2 branches covered.">            if (t.id_comprador() == 0){</span>
+<span class="fc" id="L18">                this.saldos.actualizarSaldo(t.id_vendedor(), t.monto());</span>
+<span class="fc" id="L19">            } else {</span>
+<span class="fc" id="L20">                this.saldos.actualizarSaldo(t.id_comprador(), -t.monto());</span>
+<span class="fc" id="L21">                this.saldos.actualizarSaldo(t.id_vendedor(), t.monto());</span>
+            }
+        }
+<span class="fc" id="L24">    }</span>
+
+    public Transaccion txMayorValorUltimoBloque(){
+<span class="fc" id="L27">        return this.blockchain.obtenerUltimo().mayorTransaccion();  // O(1)</span>
+    }
+
+    public Transaccion[] txUltimoBloque(){
+<span class="fc" id="L31">        return this.blockchain.obtenerUltimo().transaccionesOrdenadasPorId();   // O(n)</span>
+    }
+
+    public int maximoTenedor(){
+<span class="fc" id="L35">        return this.saldos.maximoTenedor();     // O(1)</span>
+    }
+
+    public int montoMedioUltimoBloque(){
+<span class="fc" id="L39">        return this.blockchain.obtenerUltimo().montoMedio();    // O(1)</span>
+    }
+
+    public void hackearTx(){
+<span class="fc" id="L43">        Bloque ultimoBloque = this.blockchain.obtenerUltimo();  // O(1)</span>
+        // actualizo el monto medio y borro la transaccion
+<span class="fc" id="L45">        Transaccion t = ultimoBloque.borrarMayorTransaccion();  // O(logn)</span>
+        // actualizo saldos
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (t.id_comprador() == 0) {</span>
+<span class="fc" id="L48">            saldos.actualizarSaldo(t.id_vendedor(), -t.monto());    // O(logP)</span>
+<span class="fc" id="L49">        } else {</span>
+<span class="fc" id="L50">            saldos.actualizarSaldo(t.id_comprador(), t.monto());    // O(logP)</span>
+<span class="fc" id="L51">            saldos.actualizarSaldo(t.id_vendedor(), -t.monto());    // O(logP)</span>
+        }
+
+        // los tests piden que se actualicen ambos saldos, 
+        // haciendo que solo el vendedor pierda el dinero, &quot;se lo lleva el hacker&quot;, no pasan
+<span class="fc" id="L56">    }</span>
+
+}
+
+
+
+
+
+
+
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

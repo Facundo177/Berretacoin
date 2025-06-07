@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Transaccion.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp2</a> &gt; <a href="index.source.html" class="el_package">aed</a> &gt; <span class="el_source">Transaccion.java</span></div><h1>Transaccion.java</h1><pre class="source lang-java linenums">package aed;
+
+public class Transaccion implements Comparable&lt;Transaccion&gt; {
+    private int id;
+    private int id_comprador;
+    private int id_vendedor;
+    private int monto;
+
+<span class="fc" id="L9">    public Transaccion(int id, int id_comprador, int id_vendedor, int monto) {</span>
+<span class="fc" id="L10">        this.id = id;</span>
+<span class="fc" id="L11">        this.id_comprador = id_comprador;</span>
+<span class="fc" id="L12">        this.id_vendedor = id_vendedor;</span>
+<span class="fc" id="L13">        this.monto = monto;</span>
+<span class="fc" id="L14">    }</span>
+
+    // Es positivo si el monto el mayor que el de otro, o en caso de empate, si el id es mayor que el otro
+    @Override
+    public int compareTo(Transaccion otro) {
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">        if(otro == null){</span>
+<span class="nc" id="L20">            String mensajeDeError = &quot;No puede compararse con null&quot;;</span>
+<span class="nc" id="L21">            throw new IllegalArgumentException(mensajeDeError);</span>
+        }
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if ((this.monto - otro.monto) == 0){</span>
+<span class="fc" id="L24">            return this.id - otro.id;</span>
+        }
+<span class="fc" id="L26">        return this.monto - otro.monto;</span>
+    }
+
+    @Override
+    public boolean equals(Object otro){
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        if (otro == null){</span>
+<span class="nc" id="L32">            return false;</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        } else if (otro.getClass() != this.getClass()) {</span>
+<span class="nc" id="L34">            return false;</span>
+        } else{
+<span class="fc" id="L36">            Transaccion ts = (Transaccion) otro;</span>
+<span class="pc bpc" id="L37" title="3 of 8 branches missed.">            boolean sonIguales = (this.id == ts.id) &amp;&amp; </span>
+                                (this.id_comprador == ts.id_comprador) &amp;&amp; 
+                                (this.id_vendedor == ts.id_vendedor) &amp;&amp; 
+                                (this.monto == ts.monto);
+<span class="fc" id="L41">            return sonIguales;</span>
+        }
+    }
+
+    public int monto() {
+<span class="fc" id="L46">        return monto;</span>
+    }
+
+    public int id_comprador() {
+<span class="fc" id="L50">        return id_comprador;</span>
+    }
+    
+    public int id_vendedor() {
+<span class="fc" id="L54">        return id_vendedor;</span>
+    }
+
+    public int id() {
+<span class="nc" id="L58">        return id;</span>
+    }
+
+
+    public Transaccion copiar(){
+<span class="fc" id="L63">        return new Transaccion(this.id, this.id_comprador, this.id_vendedor, this.monto);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Saldos.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp2</a> &gt; <a href="index.source.html" class="el_package">aed</a> &gt; <span class="el_source">Saldos.java</span></div><h1>Saldos.java</h1><pre class="source lang-java linenums">package aed;
+
+public class Saldos {
+    Usuario[] heap;
+    int[] handle;
+
+    // pos = (id_usuario - 1)
+    // handle[pos] = posicion del usuario en el heap
+
+<span class="fc" id="L10">    public Saldos(int n_usuarios){</span>
+<span class="fc" id="L11">        this.heap = new Usuario[n_usuarios];</span>
+<span class="fc" id="L12">        this.handle = new int[n_usuarios];</span>
+
+<span class="fc bfc" id="L14" title="All 2 branches covered.">        for (int i = 0; i &lt; n_usuarios; i++){</span>
+<span class="fc" id="L15">            this.heap[i] = new Usuario(i+1);</span>
+<span class="fc" id="L16">            this.handle[i] = i;</span>
+        }
+<span class="fc" id="L18">    }</span>
+
+    public int maximoTenedor(){
+<span class="fc" id="L21">        return this.heap[0].getId();</span>
+    }
+
+    private int padre(int i){
+<span class="fc" id="L25">        return (i-1)/2;</span>
+    }
+
+    private int hijoDerecho(int i){
+<span class="fc" id="L29">        return 2*i + 2;</span>
+    }
+
+    private int hijoIzquierdo(int i){
+<span class="fc" id="L33">        return 2*i + 1;</span>
+    }
+
+    private void siftDown(int posElem){
+<span class="fc" id="L37">        int length = this.heap.length;</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (posElem &gt;= length){</span>
+<span class="nc" id="L39">            return;</span>
+        }
+<span class="fc" id="L41">        Usuario elem = this.heap[posElem];</span>
+<span class="fc" id="L42">        int hijoDerecho = this.hijoDerecho(posElem);</span>
+<span class="fc" id="L43">        int hijoIzquierdo = this.hijoIzquierdo(posElem); </span>
+<span class="fc bfc" id="L44" title="All 4 branches covered.">        if (hijoDerecho &gt;= length &amp;&amp; hijoIzquierdo &gt;= length){</span>
+<span class="fc" id="L45">            return;</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        } else if (hijoDerecho &gt;= length) {</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">            if (elem.compareTo(this.heap[hijoIzquierdo]) &lt; 0){</span>
+<span class="fc" id="L48">                Usuario izq = this.heap[hijoIzquierdo];</span>
+<span class="fc" id="L49">                this.heap[posElem] = izq;</span>
+<span class="fc" id="L50">                this.handle[izq.getId()-1] = posElem; </span>
+<span class="fc" id="L51">                this.heap[hijoIzquierdo] = elem;</span>
+<span class="fc" id="L52">                this.handle[elem.getId()-1] = hijoIzquierdo; </span>
+<span class="fc" id="L53">            }</span>
+        } else {
+<span class="fc" id="L55">            Usuario der = this.heap[hijoDerecho];</span>
+<span class="fc" id="L56">            Usuario izq = this.heap[hijoIzquierdo];</span>
+<span class="fc bfc" id="L57" title="All 4 branches covered.">            if (elem.compareTo(der) &lt; 0 || elem.compareTo(izq) &lt; 0){</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">                int hijoMayor = der.compareTo(izq) &gt; 0 ? hijoDerecho : hijoIzquierdo;</span>
+<span class="fc" id="L59">                Usuario mayor = this.heap[hijoMayor];</span>
+<span class="fc" id="L60">                this.heap[posElem] = mayor;</span>
+<span class="fc" id="L61">                this.handle[mayor.getId()-1] = posElem;</span>
+<span class="fc" id="L62">                this.heap[hijoMayor] = elem;</span>
+<span class="fc" id="L63">                this.handle[elem.getId()-1] = hijoMayor;</span>
+<span class="fc" id="L64">                siftDown(hijoMayor);</span>
+            }
+        }
+<span class="fc" id="L67">    }</span>
+
+    private void siftUp(int posElem){
+<span class="fc" id="L70">        int length = this.heap.length;</span>
+<span class="pc bpc" id="L71" title="1 of 4 branches missed.">        if (posElem &gt;= length || posElem &lt;= 0){</span>
+<span class="fc" id="L72">            return;</span>
+        }
+<span class="fc" id="L74">        Usuario elem = this.heap[posElem];</span>
+<span class="fc" id="L75">        int posPadre = this.padre(posElem);</span>
+<span class="fc" id="L76">        Usuario padre = this.heap[posPadre];</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (elem.compareTo(padre) &gt; 0) {</span>
+<span class="fc" id="L78">            this.heap[posElem] = padre;</span>
+<span class="fc" id="L79">            this.handle[padre.getId()-1] = posElem;</span>
+<span class="fc" id="L80">            this.heap[posPadre] = elem;</span>
+<span class="fc" id="L81">            this.handle[elem.getId()-1] = posPadre;</span>
+<span class="fc" id="L82">            siftUp(posPadre);</span>
+        }
+<span class="fc" id="L84">    }</span>
+
+    // al modificar un saldo reacomodo el heap como corresponda
+    public void actualizarSaldo(int id_usuario, int monto){
+<span class="fc" id="L88">        int posUsuario = this.handle[id_usuario-1];</span>
+<span class="fc" id="L89">        Usuario usuario = this.heap[posUsuario];</span>
+<span class="fc" id="L90">        usuario.setSaldo(usuario.getSaldo() + monto);</span>
+<span class="fc" id="L91">        siftUp(this.handle[id_usuario-1]);</span>
+<span class="fc" id="L92">        siftDown(this.handle[id_usuario-1]);</span>
+<span class="fc" id="L93">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Usuario.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp2</a> &gt; <a href="index.source.html" class="el_package">aed</a> &gt; <span class="el_source">Usuario.java</span></div><h1>Usuario.java</h1><pre class="source lang-java linenums">package aed;
+
+public class Usuario implements Comparable&lt;Usuario&gt; {
+    private int id;
+    private int saldo;
+
+<span class="fc" id="L7">    public Usuario(int id){</span>
+<span class="fc" id="L8">        this.id = id;</span>
+<span class="fc" id="L9">        this.saldo = 0;</span>
+<span class="fc" id="L10">    }</span>
+
+    @Override
+    public boolean equals(Object otro){
+<span class="nc bnc" id="L14" title="All 2 branches missed.">        if (otro == null){</span>
+<span class="nc" id="L15">            return false;</span>
+<span class="nc bnc" id="L16" title="All 2 branches missed.">        } else if (otro.getClass() != this.getClass()) {</span>
+<span class="nc" id="L17">            return false;</span>
+        } else{
+<span class="nc" id="L19">            Usuario usuario = (Usuario) otro;</span>
+<span class="nc bnc" id="L20" title="All 4 branches missed.">            boolean sonIguales = (this.id == usuario.id) &amp;&amp; </span>
+                                (this.saldo == usuario.saldo);
+<span class="nc" id="L22">            return sonIguales;</span>
+        }
+    }
+
+    // da positivo cuando el saldo es mayor, o en el caso de empate, cuando el id es menor
+    @Override
+    public int compareTo(Usuario otro) {
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if(otro == null){</span>
+<span class="nc" id="L30">            String mensajeDeError = &quot;No puede compararse con null&quot;;</span>
+<span class="nc" id="L31">            throw new IllegalArgumentException(mensajeDeError);</span>
+        }
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if ((this.saldo - otro.saldo) == 0){</span>
+<span class="fc" id="L34">            return otro.id - this.id;</span>
+        }
+<span class="fc" id="L36">        return this.saldo - otro.saldo;</span>
+    }
+
+    public int getId() {
+<span class="fc" id="L40">        return id;</span>
+    }
+
+    public void setId(int id) {
+<span class="nc" id="L44">        this.id = id;</span>
+<span class="nc" id="L45">    }</span>
+
+    public int getSaldo() {
+<span class="fc" id="L48">        return saldo;</span>
+    }
+
+    public void setSaldo(int saldo) {
+<span class="fc" id="L52">        this.saldo = saldo;</span>
+<span class="fc" id="L53">    }</span>
+
+
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

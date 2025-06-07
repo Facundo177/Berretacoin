@@ -1,12 +1,10 @@
 package aed;
 
-import java.util.ArrayList;
-
 import aed.ListaEnlazadaDoble.Nodo;
 
 public class Bloque {
     private ListaEnlazadaDoble<Transaccion> transaccionesOrdenadasPorId;
-    private ColaDePrioridad<Transaccion> transaccionesOrdenadasPorMonto;
+    private ColaDePrioridad<NodoHeap> transaccionesOrdenadasPorMonto;
     private int sumaMontos;
     private int cantTransacciones; 
 
@@ -17,33 +15,32 @@ public class Bloque {
             this.transaccionesOrdenadasPorId = new ListaEnlazadaDoble<>();
             this.transaccionesOrdenadasPorMonto = new ColaDePrioridad<>();
         } else{
-            this.transaccionesOrdenadasPorId = new ListaEnlazadaDoble<Transaccion>();
-            this.transaccionesOrdenadasPorMonto = new ColaDePrioridad<Transaccion>(transacciones.length);
+            this.transaccionesOrdenadasPorId = new ListaEnlazadaDoble<>();
+            this.transaccionesOrdenadasPorMonto = new ColaDePrioridad<>(transacciones.length);
             int sumaMontos = 0;
             int cantTransacciones = 0;
             for (int i = 0; i < transacciones.length; i++) {                                // O(n)
                 Transaccion t = transacciones[i].copiar();                                  // O(1)
                 Nodo nodo = this.transaccionesOrdenadasPorId.agregarAtras(t);               // O(1)
-                NodoHeap nodoHeap = this.transaccionesOrdenadasPorMonto.agregarRapido(t);   // O(1)
-
+                NodoHeap nodoHeap = new NodoHeap(t, nodo);                                  // O(1)
+                nodo.handle = nodoHeap;                                                     // O(1)
+                this.transaccionesOrdenadasPorMonto.agregarRapido(nodoHeap);                // O(1)
                 sumaMontos += transacciones[i].id_comprador() == 0 ? 0 : transacciones[i].monto();
                 cantTransacciones += transacciones[i].id_comprador() == 0 ? 0 : 1;
             }
             this.sumaMontos = sumaMontos;
             this.cantTransacciones = cantTransacciones;
+            this.transaccionesOrdenadasPorMonto.floyd();    // O(n)
         }
     }
     
     public Transaccion[] transaccionesOrdenadasPorId(){
-        ArrayList<Transaccion> copia = new ArrayList<>(transaccionesOrdenadasPorId.length);
-        for (TransaccionActiva t : transaccionesOrdenadasPorId) {
-            if (t.sigueActiva()) {
-                copia.add(t.transaccion().copiar());
-            }
-        }
-        Transaccion[] res = new Transaccion[copia.size()];
-        for (int i = 0; i < copia.size(); i++){
-            res[i] = copia.get(i);
+        Transaccion[] res = new Transaccion[this.transaccionesOrdenadasPorId.longitud()];
+        Iterador<Transaccion> iterador = this.transaccionesOrdenadasPorId.iterador();
+        int i = 0;
+        while (iterador.haySiguiente()) {
+            res[i] = iterador.siguiente().copiar();
+            i++;
         }
         return res;
     }
@@ -57,21 +54,21 @@ public class Bloque {
     }
 
     public Transaccion mayorTransaccion(){
-        return this.transaccionesOrdenadasPorMonto.maximo();
+        return this.transaccionesOrdenadasPorMonto.maximo().transaccion;
     }
 
     public Transaccion borrarMayorTransaccion(){
-        Transaccion maxima = this.transaccionesOrdenadasPorMonto.sacarMaximo();
+        // Borro la transaccion de la cola de prioridad
+        NodoHeap nodoHeap = this.transaccionesOrdenadasPorMonto.sacarMaximo();
+        Nodo nodoLista = nodoHeap.handle;
+        Transaccion maxima = nodoHeap.transaccion;
         this.sumaMontos -= maxima.id_comprador() == 0 ? 0 : maxima.monto();
         this.cantTransacciones -= maxima.id_comprador() == 0 ? 0 : 1;
 
-        // actualizo las transacciones por id
-        this.transaccionesOrdenadasPorId[maxima.id()].borradoLogico();
+        // Borro la transaccion de la lista por id
+        this.transaccionesOrdenadasPorId.eliminarNodo(nodoLista);
 
         return maxima;
-
-
-        // falla actualizar monto medio
     }
     
 }

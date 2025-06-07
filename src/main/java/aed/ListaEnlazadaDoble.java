@@ -9,9 +9,8 @@ public class ListaEnlazadaDoble<T> {
         T valor;
         Nodo sig;
         Nodo ant;
-        int handle;
+        NodoHeap handle;
         
-
         Nodo(T v) {valor = v;}
     }
 
@@ -67,19 +66,56 @@ public class ListaEnlazadaDoble<T> {
         return this.ultimo.valor;
     }
 
-    public void eliminar(int i) {
-        Nodo actual = this.primero;
-        Nodo prev = this.primero;
+    public void eliminar(int i){
+        int contador = 0;
+        Nodo nodo = this.primero;
+        while (contador < i) {
+            contador++;
+            nodo = nodo.sig;
+        }
+        if (nodo.ant != null && nodo.sig != null){
+            nodo.ant.sig = nodo.sig;
+            nodo.sig.ant = nodo.ant;
+            nodo.ant = null;
+            nodo.sig = null;
+        } else if (nodo.ant != null){
+            this.ultimo = nodo.ant;
+            this.ultimo.sig = null;
+            nodo.ant = null;
+        } else if (nodo.sig != null) {
+            this.primero = nodo.sig;
+            this.primero.ant = null;
+            nodo.sig = null;
+        } else{
+            this.primero = null;
+            this.ultimo = null;
+        }
 
-        for(int j = 0; j < i; j++){
-            prev = actual;
-            actual = actual.sig;
+        this.size--;
+    }
+
+    public void eliminarNodo(Nodo nodo){
+        if (nodo == null){
+            return;
         }
-        if (i == 0) {
-            this.primero = actual.sig;
-        } else {
-            prev.sig = actual.sig;
+        if (nodo.ant != null && nodo.sig != null){
+            nodo.ant.sig = nodo.sig;
+            nodo.sig.ant = nodo.ant;
+            nodo.ant = null;
+            nodo.sig = null;
+        } else if (nodo.ant != null){
+            this.ultimo = nodo.ant;
+            this.ultimo.sig = null;
+            nodo.ant = null;
+        } else if (nodo.sig != null) {
+            this.primero = nodo.sig;
+            this.primero.ant = null;
+            nodo.sig = null;
+        } else{
+            this.primero = null;
+            this.ultimo = null;
         }
+
         this.size--;
     }
 
@@ -100,6 +136,7 @@ public class ListaEnlazadaDoble<T> {
             actual.sig = new Nodo(lista.obtener(i+1));
             actual = actual.sig;
         }  
+        this.ultimo = actual;
         this.size = lista.longitud();
     }
     
@@ -116,28 +153,18 @@ public class ListaEnlazadaDoble<T> {
     }
 
     private class ListaIterador implements Iterador<T> {
-    	int posicion;
+    	Nodo nodo;
         
-        ListaIterador() {posicion = 0;}
+        ListaIterador() {this.nodo = ListaEnlazadaDoble.this.primero;}
 
         public boolean haySiguiente() {
-	        return posicion < size;
-        }
-        
-        public boolean hayAnterior() {
-	        return posicion > 0;
+	        return nodo != null;
         }
 
         public T siguiente() {
-            int aux = posicion;
-            posicion++;
-            return obtener(aux);
-        }
-        
-
-        public T anterior() {
-            posicion--;
-            return obtener(posicion);
+            T elem = nodo.valor;
+            nodo = nodo.sig;
+            return elem;
         }
     }
 
