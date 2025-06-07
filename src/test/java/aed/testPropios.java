@@ -1,4 +1,4 @@
-package ackage aed;
+package aed;
 
 import java.util.ArrayList;
 import java.util.Arrays;
