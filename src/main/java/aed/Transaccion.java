@@ -58,8 +58,12 @@ public class Transaccion implements Comparable<Transaccion> {
         return id;
     }
 
-
     public Transaccion copiar(){
         return new Transaccion(this.id, this.id_comprador, this.id_vendedor, this.monto);
+    }
+
+    public boolean esDeCreacion(){
+        return this.id_comprador == 0;
+
     }
 }

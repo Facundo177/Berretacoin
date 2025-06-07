@@ -40,7 +40,7 @@ public class ColaDePrioridad&lt;T extends Comparable&lt;T&gt;&gt; {
     public void agregar(T elem){
 <span class="nc bnc" id="L41" title="All 2 branches missed.">        if (this.vacia()){</span>
 <span class="nc" id="L42">            this.heap.add(elem);</span>
-        } else{
+<span class="nc" id="L43">        } else{</span>
 <span class="nc" id="L44">            this.heap.add(elem);</span>
 <span class="nc" id="L45">            int posElem = this.heap.size()-1;</span>
 <span class="nc" id="L46">            siftUp(posElem);</span>
@@ -74,8 +74,8 @@ public class ColaDePrioridad&lt;T extends Comparable&lt;T&gt;&gt; {
 <span class="fc" id="L74">                T izq = this.heap.get(hijoIzquierdo);</span>
 <span class="fc" id="L75">                this.heap.set(posElem, izq);</span>
 <span class="fc" id="L76">                this.heap.set(hijoIzquierdo, elem);</span>
-<span class="fc" id="L77">            }</span>
-        } else {
+            }
+<span class="fc" id="L78">        } else {</span>
 <span class="fc" id="L79">            T der = this.heap.get(hijoDerecho);</span>
 <span class="fc" id="L80">            T izq = this.heap.get(hijoIzquierdo);</span>
 <span class="fc bfc" id="L81" title="All 4 branches covered.">            if (elem.compareTo(der) &lt; 0 || elem.compareTo(izq) &lt; 0){</span>

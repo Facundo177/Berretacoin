@@ -14,7 +14,7 @@ public class Berretacoin {
         this.blockchain.agregarAtras(bloque);           // O(1)
 
         for (Transaccion t : transacciones) {           // O(n * logP)
-            if (t.id_comprador() == 0){
+            if (t.esDeCreacion()){
                 this.saldos.actualizarSaldo(t.id_vendedor(), t.monto());
             } else {
                 this.saldos.actualizarSaldo(t.id_comprador(), -t.monto());
@@ -44,7 +44,7 @@ public class Berretacoin {
         // actualizo el monto medio y borro la transaccion
         Transaccion t = ultimoBloque.borrarMayorTransaccion();  // O(logn)
         // actualizo saldos
-        if (t.id_comprador() == 0) {
+        if (t.esDeCreacion()) {
             saldos.actualizarSaldo(t.id_vendedor(), -t.monto());    // O(logP)
         } else {
             saldos.actualizarSaldo(t.id_comprador(), t.monto());    // O(logP)

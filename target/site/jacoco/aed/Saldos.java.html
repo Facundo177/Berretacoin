@@ -45,52 +45,47 @@ public class Saldos {
 <span class="fc" id="L45">            return;</span>
 <span class="fc bfc" id="L46" title="All 2 branches covered.">        } else if (hijoDerecho &gt;= length) {</span>
 <span class="fc bfc" id="L47" title="All 2 branches covered.">            if (elem.compareTo(this.heap[hijoIzquierdo]) &lt; 0){</span>
-<span class="fc" id="L48">                Usuario izq = this.heap[hijoIzquierdo];</span>
-<span class="fc" id="L49">                this.heap[posElem] = izq;</span>
-<span class="fc" id="L50">                this.handle[izq.getId()-1] = posElem; </span>
-<span class="fc" id="L51">                this.heap[hijoIzquierdo] = elem;</span>
-<span class="fc" id="L52">                this.handle[elem.getId()-1] = hijoIzquierdo; </span>
-<span class="fc" id="L53">            }</span>
-        } else {
-<span class="fc" id="L55">            Usuario der = this.heap[hijoDerecho];</span>
-<span class="fc" id="L56">            Usuario izq = this.heap[hijoIzquierdo];</span>
-<span class="fc bfc" id="L57" title="All 4 branches covered.">            if (elem.compareTo(der) &lt; 0 || elem.compareTo(izq) &lt; 0){</span>
-<span class="fc bfc" id="L58" title="All 2 branches covered.">                int hijoMayor = der.compareTo(izq) &gt; 0 ? hijoDerecho : hijoIzquierdo;</span>
-<span class="fc" id="L59">                Usuario mayor = this.heap[hijoMayor];</span>
-<span class="fc" id="L60">                this.heap[posElem] = mayor;</span>
-<span class="fc" id="L61">                this.handle[mayor.getId()-1] = posElem;</span>
-<span class="fc" id="L62">                this.heap[hijoMayor] = elem;</span>
-<span class="fc" id="L63">                this.handle[elem.getId()-1] = hijoMayor;</span>
-<span class="fc" id="L64">                siftDown(hijoMayor);</span>
+<span class="fc" id="L48">                intercambio(posElem, hijoIzquierdo);</span>
+            }
+<span class="fc" id="L50">        } else {</span>
+<span class="fc" id="L51">            Usuario der = this.heap[hijoDerecho];</span>
+<span class="fc" id="L52">            Usuario izq = this.heap[hijoIzquierdo];</span>
+<span class="fc bfc" id="L53" title="All 4 branches covered.">            if (elem.compareTo(der) &lt; 0 || elem.compareTo(izq) &lt; 0){</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">                int hijoMayor = der.compareTo(izq) &gt; 0 ? hijoDerecho : hijoIzquierdo;</span>
+<span class="fc" id="L55">                intercambio(posElem, hijoMayor);</span>
+<span class="fc" id="L56">                siftDown(hijoMayor);</span>
             }
         }
-<span class="fc" id="L67">    }</span>
+<span class="fc" id="L59">    }</span>
 
     private void siftUp(int posElem){
-<span class="fc" id="L70">        int length = this.heap.length;</span>
-<span class="pc bpc" id="L71" title="1 of 4 branches missed.">        if (posElem &gt;= length || posElem &lt;= 0){</span>
-<span class="fc" id="L72">            return;</span>
+<span class="fc" id="L62">        int length = this.heap.length;</span>
+<span class="pc bpc" id="L63" title="1 of 4 branches missed.">        if (posElem &gt;= length || posElem &lt;= 0){</span>
+<span class="fc" id="L64">            return;</span>
         }
-<span class="fc" id="L74">        Usuario elem = this.heap[posElem];</span>
-<span class="fc" id="L75">        int posPadre = this.padre(posElem);</span>
-<span class="fc" id="L76">        Usuario padre = this.heap[posPadre];</span>
-<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (elem.compareTo(padre) &gt; 0) {</span>
-<span class="fc" id="L78">            this.heap[posElem] = padre;</span>
-<span class="fc" id="L79">            this.handle[padre.getId()-1] = posElem;</span>
-<span class="fc" id="L80">            this.heap[posPadre] = elem;</span>
-<span class="fc" id="L81">            this.handle[elem.getId()-1] = posPadre;</span>
-<span class="fc" id="L82">            siftUp(posPadre);</span>
+<span class="fc" id="L66">        Usuario elem = this.heap[posElem];</span>
+<span class="fc" id="L67">        int posPadre = this.padre(posElem);</span>
+<span class="fc" id="L68">        Usuario padre = this.heap[posPadre];</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (elem.compareTo(padre) &gt; 0) {</span>
+<span class="fc" id="L70">            intercambio(posElem, posPadre);</span>
+<span class="fc" id="L71">            siftUp(posPadre);</span>
         }
-<span class="fc" id="L84">    }</span>
-
+<span class="fc" id="L73">    }</span>
+    private void intercambio(int posElem1, int posElem2){
+<span class="fc" id="L75">        Usuario usuario = this.heap[posElem1];</span>
+<span class="fc" id="L76">        this.heap[posElem1] = this.heap[posElem2];</span>
+<span class="fc" id="L77">        this.heap[posElem2] = usuario;</span>
+<span class="fc" id="L78">        this.handle[this.heap[posElem1].getId()-1] = posElem1;</span>
+<span class="fc" id="L79">        this.handle[this.heap[posElem2].getId()-1] = posElem2;</span>
+<span class="fc" id="L80">    }</span>
     // al modificar un saldo reacomodo el heap como corresponda
     public void actualizarSaldo(int id_usuario, int monto){
-<span class="fc" id="L88">        int posUsuario = this.handle[id_usuario-1];</span>
-<span class="fc" id="L89">        Usuario usuario = this.heap[posUsuario];</span>
-<span class="fc" id="L90">        usuario.setSaldo(usuario.getSaldo() + monto);</span>
-<span class="fc" id="L91">        siftUp(this.handle[id_usuario-1]);</span>
-<span class="fc" id="L92">        siftDown(this.handle[id_usuario-1]);</span>
-<span class="fc" id="L93">    }</span>
+<span class="fc" id="L83">        int posUsuario = this.handle[id_usuario-1];</span>
+<span class="fc" id="L84">        Usuario usuario = this.heap[posUsuario];</span>
+<span class="fc" id="L85">        usuario.setSaldo(usuario.getSaldo() + monto);</span>
+<span class="fc" id="L86">        siftUp(this.handle[id_usuario-1]);</span>
+<span class="fc" id="L87">        siftDown(this.handle[id_usuario-1]);</span>
+<span class="fc" id="L88">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

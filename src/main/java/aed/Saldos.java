@@ -45,22 +45,14 @@ public class Saldos {
             return;
         } else if (hijoDerecho >= length) {
             if (elem.compareTo(this.heap[hijoIzquierdo]) < 0){
-                Usuario izq = this.heap[hijoIzquierdo];
-                this.heap[posElem] = izq;
-                this.handle[izq.getId()-1] = posElem; 
-                this.heap[hijoIzquierdo] = elem;
-                this.handle[elem.getId()-1] = hijoIzquierdo; 
+                intercambio(posElem, hijoIzquierdo);
             }
         } else {
             Usuario der = this.heap[hijoDerecho];
             Usuario izq = this.heap[hijoIzquierdo];
             if (elem.compareTo(der) < 0 || elem.compareTo(izq) < 0){
                 int hijoMayor = der.compareTo(izq) > 0 ? hijoDerecho : hijoIzquierdo;
-                Usuario mayor = this.heap[hijoMayor];
-                this.heap[posElem] = mayor;
-                this.handle[mayor.getId()-1] = posElem;
-                this.heap[hijoMayor] = elem;
-                this.handle[elem.getId()-1] = hijoMayor;
+                intercambio(posElem, hijoMayor);
                 siftDown(hijoMayor);
             }
         }
@@ -75,14 +67,17 @@ public class Saldos {
         int posPadre = this.padre(posElem);
         Usuario padre = this.heap[posPadre];
         if (elem.compareTo(padre) > 0) {
-            this.heap[posElem] = padre;
-            this.handle[padre.getId()-1] = posElem;
-            this.heap[posPadre] = elem;
-            this.handle[elem.getId()-1] = posPadre;
+            intercambio(posElem, posPadre);
             siftUp(posPadre);
         }
     }
-
+    private void intercambio(int posElem1, int posElem2){
+        Usuario usuario = this.heap[posElem1];
+        this.heap[posElem1] = this.heap[posElem2];
+        this.heap[posElem2] = usuario;
+        this.handle[this.heap[posElem1].getId()-1] = posElem1;
+        this.handle[this.heap[posElem2].getId()-1] = posElem2;
+    }
     // al modificar un saldo reacomodo el heap como corresponda
     public void actualizarSaldo(int id_usuario, int monto){
         int posUsuario = this.handle[id_usuario-1];
