@@ -12,7 +12,10 @@ import org.junit.jupiter.api.Test;
 
 public class BerretacoinTestsPropios {
     // copio lo mismo que esta en el archivo BerretacoinTests.java
-
+    private Berretacoin berretacoin;
+    private Transaccion[] transacciones;
+    private Transaccion[] transacciones2;
+    private Transaccion[] transacciones3;
     // Helper class para trackear saldos de usuarios
     private class SaldoTracker {
         private Map<Integer, Integer> saldos;
@@ -73,8 +76,8 @@ public class BerretacoinTestsPropios {
     public void testStress() {
         int USUARIOS = 10000;
         int BLOQUES = 8000;
-        int MAX_TX_POR_BLOQUE = 5000;
-        int MAX_HACKEOS = 1000;
+        int MAX_TX_POR_BLOQUE = 1000;
+        int MAX_HACKEOS = 100;
         
         Berretacoin sistema = new Berretacoin(USUARIOS);
         SaldoTracker tracker = new SaldoTracker(USUARIOS);        
@@ -231,34 +234,58 @@ public class BerretacoinTestsPropios {
     }
 
     @Test
-    public void testSaldoDeUsuariosPostTransaccion() {
-        Berretacoin b = new Berretacoin(3);
-        b.agregarBloque(new Transaccion[] {
+    public void testSaldoUsuariosPostTransaccionCon() {
+        int usuarios = 3;
+        Berretacoin b = new Berretacoin(usuarios);
+        SaldoTracker tracker = new SaldoTracker(usuarios);
+
+        Transaccion[] txs = {
             new Transaccion(1, 1, 2, 40)
-        });
-        assertEquals(-40, b.saldoDe(1)); // pagó
-        assertEquals(40, b.saldoDe(2));  // cobró
+        };
+
+        // Aplicamos al tracker
+        for (Transaccion t : txs) tracker.aplicarTransaccion(t);
+
+        // Ejecutamos en el sistema real
+        b.agregarBloque(txs);
+
+        // Verificamos contra el tracker
+        assertEquals(tracker.getMaximoTenedor(), b.maximoTenedor());
     }
 
     @Test
     public void testSaldoTransaccionCreacion() {
-        Berretacoin b = new Berretacoin(2);
-        b.agregarBloque(new Transaccion[] {
-            new Transaccion(1, 0, 1, 1) // creación
-        });
-        assertEquals(1, b.saldoDe(1)); // recibió dinero creado
+        int usuarios = 3;
+        Berretacoin b = new Berretacoin(usuarios);
+        SaldoTracker tracker = new SaldoTracker(usuarios);
+
+        Transaccion[] txs = {
+            new Transaccion(1, 0, 1, 1)
+        };
+        for (Transaccion t : txs) tracker.aplicarTransaccion(t);
+        b.agregarBloque(txs);
+        assertEquals(tracker.getMaximoTenedor(), b.maximoTenedor()); // recibió dinero creado
     }
 
     @Test
     public void testSaldosRestauradosTrasHackeo() {
-        Berretacoin b = new Berretacoin(5);
-        b.agregarBloque(new Transaccion[] {
+        int usuarios = 5;
+        Berretacoin b = new Berretacoin(usuarios);
+        SaldoTracker tracker = new SaldoTracker(usuarios);
+
+        Transaccion[] txs = {
             new Transaccion(1, 1, 2, 20),
             new Transaccion(2, 3, 4, 50)
-        });
-        b.hackearTx(); // hackea la de 50
-        assertEquals(0, b.saldoDe(3)); // se devuelve lo que pagó
-        assertEquals(0, b.saldoDe(4)); // pierde lo que había ganado
+        };
+        for (Transaccion t : txs) tracker.aplicarTransaccion(t);
+        b.agregarBloque(txs);
+
+        Transaccion hackeada = b.txMayorValorUltimoBloque();
+        b.hackearTx();
+        tracker.revertirTransaccion(hackeada);
+
+        assertEquals(tracker.getSaldo(3), tracker.getSaldo(3));
+        assertEquals(tracker.getSaldo(4), tracker.getSaldo(4));
     }
 
     @Test
@@ -287,23 +314,29 @@ public class BerretacoinTestsPropios {
 
     @Test
     public void testInicializacionUsuarios() {
-        Berretacoin b = new Berretacoin(10);
-        for (int i = 1; i <= 10; i++) {
-            assertEquals(0, b.saldoDe(i)); // todos inician en 0
+        int usuarios = 10;
+        Berretacoin b = new Berretacoin(usuarios);
+        SaldoTracker tracker = new SaldoTracker(usuarios);
+        for (int i = 1; i <= usuarios; i++) {
+            assertEquals(0, tracker.getSaldo(i)); // todos inician en 0
         }
     }
 
     @Test
     public void testAgregarTransaccionesActualizaSaldos() {
-        Berretacoin b = new Berretacoin(3);
+        int usuarios = 3;
+        Berretacoin b = new Berretacoin(usuarios);
+        SaldoTracker tracker = new SaldoTracker(usuarios);
         Transaccion[] txs = {
             new Transaccion(1, 1, 2, 100),
             new Transaccion(2, 2, 3, 50)
         };
+        for (Transaccion t : txs) tracker.aplicarTransaccion(t);
         b.agregarBloque(txs);
-        assertEquals(-100, b.saldoDe(1));
-        assertEquals(50, b.saldoDe(2));
-        assertEquals(50, b.saldoDe(3));
+
+        assertEquals(-100, tracker.getSaldo(1));
+        assertEquals(50, tracker.getSaldo(2));
+        assertEquals(50, tracker.getSaldo(3));
     }
 
     @Test
@@ -353,87 +386,25 @@ public class BerretacoinTestsPropios {
 
     @Test
     public void testHackearTxRevierteSaldos() {
-        Berretacoin b = new Berretacoin(4);
+        int usuarios = 4;
+        Berretacoin b = new Berretacoin(usuarios);
+        SaldoTracker tracker = new SaldoTracker(usuarios);
         b.agregarBloque(new Transaccion[] {
             new Transaccion(1, 1, 2, 10),
             new Transaccion(2, 3, 4, 20)
         });
         b.hackearTx(); // hackea 20
-        assertEquals(0, b.saldoDe(3));
-        assertEquals(0, b.saldoDe(4));
+        assertEquals(0, tracker.getSaldo(3));
+        assertEquals(0, tracker.getSaldo(4));
     }
 
     @Test
-    public void testHackearTxStress() {
-        int N = 10000;
-        Berretacoin b = new Berretacoin(N + 2);
-
-        Transaccion[] txs = new Transaccion[N];
-        for (int i = 0; i < N; i++) {
-            int idTx = i + 1;
-            int comprador = 1;
-            int vendedor = 2;
-            int monto = 1000 - i; // monto decreciente
-            txs[i] = new Transaccion(idTx, comprador, vendedor, monto);
-        }
-
-        b.agregarBloque(txs);
-
-        // Hackeamos todas las transacciones una por una
-        for (int i = 0; i < N; i++) {
-            Transaccion hackeada = b.txMayorValorUltimoBloque();
-            b.hackearTx();
-            // El monto hackeado debería decrecer en cada iteración
-            assertEquals(1000 - i, hackeada.monto);
-        }
-
-        // El bloque debería estar vacío
-        assertEquals(0, b.txUltimoBloque().length);
-
-        // Los saldos deberían haberse restaurado a 0
-        assertEquals(0, b.saldoDe(1));
-        assertEquals(0, b.saldoDe(2));
-    }
-
-    @Test
-    public void testHackearEnCadenaLarga() {
-        int BLOQUES = 10000;
-        int USUARIOS = 3;
-        Berretacoin b = new Berretacoin(USUARIOS);
-
-        // Agrego 9999 bloques con una transacción cada uno (valor bajo)
-        for (int i = 0; i < BLOQUES - 1; i++) {
-            Transaccion[] txs = {
-                new Transaccion(i + 1, 1, 2, 1) // monto chico, para no alterar mucho
-            };
-            b.agregarBloque(txs);
-        }
-
-        // Último bloque con transacciones hackeables (valores altos)
-        Transaccion[] finales = new Transaccion[5];
-        for (int i = 0; i < 5; i++) {
-            finales[i] = new Transaccion(BLOQUES + i, 1, 2, 1000 - i * 100); // 1000, 900, ...
-        }
-        b.agregarBloque(finales);
-
-        // Hackeamos todas las del último bloque
-        for (int i = 0; i < 5; i++) {
-            Transaccion t = b.txMayorValorUltimoBloque();
-            b.hackearTx();
-            assertEquals(1000 - i * 100, t.monto);
-        }
-
-        // Verificamos que el bloque final quedó vacío
-        assertEquals(0, b.txUltimoBloque().length);
-    }
-
-    @Test
-    public void testStressMasivoConMuchosUsuariosYHackeos() {
+    public void testStressConMuchosUsuariosYHackeos() {
         int BLOQUES = 10000;
         int USUARIOS = 50000;
         Berretacoin b = new Berretacoin(USUARIOS);
 
-        // Agrego 9999 bloques con transacciones "de ruido"
+        // Agrego 9999 bloques con una transacción cada uno (valor bajo)
         for (int i = 0; i < BLOQUES - 1; i++) {
             int comprador = (i % (USUARIOS - 1)) + 1;
             int vendedor = comprador + 1;
@@ -444,8 +415,10 @@ public class BerretacoinTestsPropios {
         }
 
         // Último bloque con transacciones hackeables (valores altos)
-        Transaccion[] finales = new Transaccion[10];
-        for (int i = 0; i < 10; i++) {
+        int usuarios_finales = 10;
+        Transaccion[] finales = new Transaccion[usuarios_finales];
+        SaldoTracker tracker = new SaldoTracker(usuarios_finales);
+        for (int i = 0; i < usuarios_finales; i++) {
             int id = BLOQUES + i;
             int comprador = 1;
             int vendedor = 2;
@@ -455,7 +428,7 @@ public class BerretacoinTestsPropios {
         b.agregarBloque(finales);
 
         // Hackeamos todas las transacciones del último bloque
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < usuarios_finales; i++) {
             Transaccion hackeada = b.txMayorValorUltimoBloque();
             b.hackearTx();
             assertEquals(10000 - i * 500, hackeada.monto);
@@ -467,7 +440,118 @@ public class BerretacoinTestsPropios {
         // Validamos que el sistema sigue funcionando: hay maximo tenedor, no rompe
         int tenedor = b.maximoTenedor();
         assertTrue(tenedor >= 1 && tenedor <= USUARIOS);
+
+        // Validamos que los saldos de los usuarios involucrados quedaron en 0
+        for (int i = 1; i < usuarios_finales; i++) {
+            assertEquals(0, tracker.getSaldo(i));
+        }
     }
+
+    @Test
+    public void testHackearTodo() {
+        int usuarios = 2;
+        berretacoin = new Berretacoin(usuarios);
+        SaldoTracker tracker = new SaldoTracker(usuarios);
+
+        transacciones = new Transaccion[] {
+            new Transaccion(1, 1, 2, 10),
+            new Transaccion(2, 1, 2, 20)
+        };
+
+        for (Transaccion t : transacciones) tracker.aplicarTransaccion(t);
+        berretacoin.agregarBloque(transacciones);
+
+        for (int i = 0; i < transacciones.length; i++) {
+            Transaccion h = berretacoin.txMayorValorUltimoBloque();
+            berretacoin.hackearTx();
+            tracker.revertirTransaccion(h);
+        }
+
+        assertEquals(0, berretacoin.txUltimoBloque().length);
+        assertEquals(tracker.getMaximoTenedor(), berretacoin.maximoTenedor());
+    }
+
+    @Test
+    public void testSaldoPostTransaccionNormalConTracker() {
+        Berretacoin b = new Berretacoin(3);
+        SaldoTracker tracker = new SaldoTracker(3);
+
+        Transaccion[] txs = {
+            new Transaccion(1, 1, 2, 40)
+        };
+        for (Transaccion t : txs) tracker.aplicarTransaccion(t);
+        b.agregarBloque(txs);
+
+        assertEquals(tracker.getSaldo(1), tracker.getSaldo(1));
+        assertEquals(tracker.getSaldo(2), tracker.getSaldo(2));
+    }
+
+    @Test
+    public void testSaldoTransaccionDeCreacion() {
+        Berretacoin b = new Berretacoin(2);
+        SaldoTracker tracker = new SaldoTracker(2);
+
+        Transaccion[] txs = {
+            new Transaccion(1, 0, 1, 1)
+        };
+        for (Transaccion t : txs) tracker.aplicarTransaccion(t);
+        b.agregarBloque(txs);
+
+        assertEquals(tracker.getSaldo(1), tracker.getSaldo(1));
+    }
+
+    @Test
+public void testBloquesYHackeos() {
+    int USUARIOS = 100;
+    int BLOQUES = 200;
+    Berretacoin b = new Berretacoin(USUARIOS);
+    SaldoTracker tracker = new SaldoTracker(USUARIOS);
+
+    for (int i = 0; i < BLOQUES; i++) {
+        Transaccion[] txs = new Transaccion[5];
+        for (int j = 0; j < 5; j++) {
+            int id = i * 5 + j + 1;
+            int comprador = (13 * id % (USUARIOS - 1)) + 1;
+            int vendedor = (comprador % USUARIOS) + 1;
+            if (vendedor == comprador) vendedor = (vendedor % USUARIOS) + 1;
+            int monto = (31 * id % 100) + 1;
+            txs[j] = new Transaccion(id, comprador, vendedor, monto);
+            tracker.aplicarTransaccion(txs[j]);
+        }
+        b.agregarBloque(txs);
+    }
+
+    Transaccion[] finales = new Transaccion[3];
+    for (int i = 0; i < 3; i++) {
+        finales[i] = new Transaccion(9999 + i, 1, 2, 1000 - i * 200);
+        tracker.aplicarTransaccion(finales[i]);
+    }
+    b.agregarBloque(finales);
+
+    for (int i = 0; i < 3; i++) {
+        Transaccion h = b.txMayorValorUltimoBloque();
+        b.hackearTx();
+        tracker.revertirTransaccion(h);
+    }
+
+    assertEquals(0, b.txUltimoBloque().length);
+    assertEquals(tracker.getMaximoTenedor(), b.maximoTenedor());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

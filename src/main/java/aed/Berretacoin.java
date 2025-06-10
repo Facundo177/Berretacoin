@@ -54,11 +54,6 @@ public class Berretacoin {
         // los tests piden que se actualicen ambos saldos, 
         // haciendo que solo el vendedor pierda el dinero, "se lo lleva el hacker", no pasan
     }
-
-    public int saldoDe(int idUsuario) {
-    return this.saldos.saldoDe(idUsuario);
-    }
-
 }
 
 
