@@ -17,8 +17,8 @@ public class Usuario implements Comparable&lt;Usuario&gt; {
 <span class="nc" id="L17">            return false;</span>
         } else{
 <span class="nc" id="L19">            Usuario usuario = (Usuario) otro;</span>
-<span class="nc bnc" id="L20" title="All 4 branches missed.">            boolean sonIguales = (this.id == usuario.id) &amp;&amp; </span>
-                                (this.saldo == usuario.saldo);
+<span class="nc bnc" id="L20" title="All 2 branches missed.">            boolean sonIguales = (this.id == usuario.id) &amp;&amp; </span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">                                (this.saldo == usuario.saldo);</span>
 <span class="nc" id="L22">            return sonIguales;</span>
         }
     }

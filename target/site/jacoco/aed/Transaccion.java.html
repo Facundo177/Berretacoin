@@ -34,10 +34,10 @@ public class Transaccion implements Comparable&lt;Transaccion&gt; {
 <span class="nc" id="L34">            return false;</span>
         } else{
 <span class="fc" id="L36">            Transaccion ts = (Transaccion) otro;</span>
-<span class="pc bpc" id="L37" title="3 of 8 branches missed.">            boolean sonIguales = (this.id == ts.id) &amp;&amp; </span>
-                                (this.id_comprador == ts.id_comprador) &amp;&amp; 
-                                (this.id_vendedor == ts.id_vendedor) &amp;&amp; 
-                                (this.monto == ts.monto);
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">            boolean sonIguales = (this.id == ts.id) &amp;&amp; </span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">                                (this.id_comprador == ts.id_comprador) &amp;&amp; </span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">                                (this.id_vendedor == ts.id_vendedor) &amp;&amp; </span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">                                (this.monto == ts.monto);</span>
 <span class="fc" id="L41">            return sonIguales;</span>
         }
     }
@@ -58,9 +58,13 @@ public class Transaccion implements Comparable&lt;Transaccion&gt; {
 <span class="nc" id="L58">        return id;</span>
     }
 
-
     public Transaccion copiar(){
-<span class="fc" id="L63">        return new Transaccion(this.id, this.id_comprador, this.id_vendedor, this.monto);</span>
+<span class="fc" id="L62">        return new Transaccion(this.id, this.id_comprador, this.id_vendedor, this.monto);</span>
+    }
+
+    public boolean esDeCreacion(){
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        return this.id_comprador == 0;</span>
+
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

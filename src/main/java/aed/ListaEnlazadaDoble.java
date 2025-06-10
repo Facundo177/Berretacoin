@@ -24,19 +24,6 @@ public class ListaEnlazadaDoble<T> {
         return this.size;
     }
 
-    public Nodo agregarAdelante(T elem) {
-        Nodo nuevo = new Nodo(elem);
-        if (this.primero == null) {
-            this.primero = nuevo;
-            this.ultimo = nuevo;
-        } else {
-            nuevo.sig = this.primero;
-            this.primero.ant = nuevo;
-            this.primero = nuevo;
-        }
-        this.size++;
-        return nuevo;
-    }
 
     public Nodo agregarAtras(T elem) {
         Nodo nuevo = new Nodo(elem);
@@ -66,34 +53,6 @@ public class ListaEnlazadaDoble<T> {
         return this.ultimo.valor;
     }
 
-    public void eliminar(int i){
-        int contador = 0;
-        Nodo nodo = this.primero;
-        while (contador < i) {
-            contador++;
-            nodo = nodo.sig;
-        }
-        if (nodo.ant != null && nodo.sig != null){
-            nodo.ant.sig = nodo.sig;
-            nodo.sig.ant = nodo.ant;
-            nodo.ant = null;
-            nodo.sig = null;
-        } else if (nodo.ant != null){
-            this.ultimo = nodo.ant;
-            this.ultimo.sig = null;
-            nodo.ant = null;
-        } else if (nodo.sig != null) {
-            this.primero = nodo.sig;
-            this.primero.ant = null;
-            nodo.sig = null;
-        } else{
-            this.primero = null;
-            this.ultimo = null;
-        }
-
-        this.size--;
-    }
-
     public void eliminarNodo(Nodo nodo){
         if (nodo == null){
             return;
@@ -119,16 +78,6 @@ public class ListaEnlazadaDoble<T> {
         this.size--;
     }
 
-    public void modificarPosicion(int indice, T elem) {
-        int contador = 0;
-        Nodo actual = this.primero;
-        while (contador < indice) {
-            contador++;
-            actual = actual.sig;
-        }
-        actual.valor = elem;
-    }
-
     public ListaEnlazadaDoble(ListaEnlazadaDoble<T> lista) {
         this.primero = new Nodo(lista.obtener(0));
         Nodo actual = this.primero;
@@ -138,18 +87,6 @@ public class ListaEnlazadaDoble<T> {
         }  
         this.ultimo = actual;
         this.size = lista.longitud();
-    }
-    
-    @Override
-    public String toString() {
-        String res = "[";
-        Nodo actual = this.primero;
-        while (actual != null) {
-            res += actual.valor + ", ";
-            actual = actual.sig;
-        }
-        res = res.substring(0, res.length() - 2) + "]";
-        return res;
     }
 
     private class ListaIterador implements Iterador<T> {

@@ -8,31 +8,23 @@ public class Bloque {
     private int sumaMontos;
     private int cantTransacciones; 
 
-    public Bloque(Transaccion[] transacciones){
-        if (transacciones.length <= 0){
-            this.sumaMontos = 0;
-            this.cantTransacciones = 0;
-            this.transaccionesOrdenadasPorId = new ListaEnlazadaDoble<>();
-            this.transaccionesOrdenadasPorMonto = new ColaDePrioridad<>();
-        } else{
-            this.transaccionesOrdenadasPorId = new ListaEnlazadaDoble<>();
-            this.transaccionesOrdenadasPorMonto = new ColaDePrioridad<>(transacciones.length);
-            int sumaMontos = 0;
-            int cantTransacciones = 0;
-            for (int i = 0; i < transacciones.length; i++) {                                // O(n)
-                Transaccion t = transacciones[i].copiar();                                  // O(1)
-                Nodo nodo = this.transaccionesOrdenadasPorId.agregarAtras(t);               // O(1)
-                NodoHeap nodoHeap = new NodoHeap(t, nodo);                                  // O(1)
-                nodo.handle = nodoHeap;                                                     // O(1)
-                this.transaccionesOrdenadasPorMonto.agregarRapido(nodoHeap);                // O(1)
-                sumaMontos += transacciones[i].id_comprador() == 0 ? 0 : transacciones[i].monto();
-                cantTransacciones += transacciones[i].id_comprador() == 0 ? 0 : 1;
-            }
-            this.sumaMontos = sumaMontos;
-            this.cantTransacciones = cantTransacciones;
-            this.transaccionesOrdenadasPorMonto.floyd();    // O(n)
-        }
-    }
+public Bloque(Transaccion[] transacciones){
+    this.transaccionesOrdenadasPorId = new ListaEnlazadaDoble<>();
+    this.transaccionesOrdenadasPorMonto = new ColaDePrioridad<>(transacciones.length);
+    this.sumaMontos = 0;
+    this.cantTransacciones = 0;
+            
+    for (int i = 0; i < transacciones.length; i++) {                                // O(n)
+        Transaccion t = transacciones[i].copiar();                                  // O(1)
+        Nodo nodo = this.transaccionesOrdenadasPorId.agregarAtras(t);               // O(1)
+        NodoHeap nodoHeap = new NodoHeap(t, nodo);                                  // O(1)
+        nodo.handle = nodoHeap;                                                     // O(1)
+        this.transaccionesOrdenadasPorMonto.agregarRapido(nodoHeap);                // O(1)
+        this.sumaMontos += transacciones[i].id_comprador() == 0 ? 0 : transacciones[i].monto();
+        this.cantTransacciones += transacciones[i].id_comprador() == 0 ? 0 : 1;
+    
+    }this.transaccionesOrdenadasPorMonto.floyd();    // O(n)
+}
     
     public Transaccion[] transaccionesOrdenadasPorId(){
         Transaccion[] res = new Transaccion[this.transaccionesOrdenadasPorId.longitud()];
