@@ -87,4 +87,9 @@ public class Saldos {
         siftDown(this.handle[id_usuario-1]);
     }
 
+    public int saldoDe(int idUsuario) {
+    int pos = handle[idUsuario - 1]; // IDs van de 1 a P
+    return heap[pos].saldo;
+    }
+
 }

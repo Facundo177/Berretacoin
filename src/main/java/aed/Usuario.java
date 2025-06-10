@@ -2,7 +2,7 @@ package aed;
 
 public class Usuario implements Comparable<Usuario> {
     private int id;
-    private int saldo;
+    public int saldo;
 
     public Usuario(int id){
         this.id = id;

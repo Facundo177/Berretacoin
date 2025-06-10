@@ -55,6 +55,10 @@ public class Berretacoin {
         // haciendo que solo el vendedor pierda el dinero, "se lo lleva el hacker", no pasan
     }
 
+    public int saldoDe(int idUsuario) {
+    return this.saldos.saldoDe(idUsuario);
+    }
+
 }
 
 
