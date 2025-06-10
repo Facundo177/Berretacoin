@@ -26,8 +26,6 @@ public Bloque(Transaccion[] transacciones){
     }this.transaccionesOrdenadasPorMonto.floyd();    // O(n)
 }
     
-
-    
     public Transaccion[] transaccionesOrdenadasPorId(){
         Transaccion[] res = new Transaccion[this.transaccionesOrdenadasPorId.longitud()];
         Iterador<Transaccion> iterador = this.transaccionesOrdenadasPorId.iterador();
