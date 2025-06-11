@@ -54,10 +54,12 @@ public Bloque(Transaccion[] transacciones){
         NodoHeap nodoHeap = this.transaccionesOrdenadasPorMonto.sacarMaximo();
         Nodo nodoLista = nodoHeap.handle;
         Transaccion maxima = nodoHeap.transaccion;
+
+        // actualizo los valores usados en el monto medio
         this.sumaMontos -= maxima.id_comprador() == 0 ? 0 : maxima.monto();
         this.cantTransacciones -= maxima.id_comprador() == 0 ? 0 : 1;
 
-        // Borro la transaccion de la lista por id
+        // Borro la transaccion de la lista
         this.transaccionesOrdenadasPorId.eliminarNodo(nodoLista);
 
         return maxima;

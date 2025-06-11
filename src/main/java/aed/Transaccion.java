@@ -13,7 +13,7 @@ public class Transaccion implements Comparable<Transaccion> {
         this.monto = monto;
     }
 
-    // Es positivo si el monto el mayor que el de otro, o en caso de empate, si el id es mayor que el otro
+    // Es positivo si el monto es mayor que el de otro, o en caso de empate, si el id es mayor que el de otro
     @Override
     public int compareTo(Transaccion otro) {
         if(otro == null){
@@ -64,6 +64,5 @@ public class Transaccion implements Comparable<Transaccion> {
 
     public boolean esDeCreacion(){
         return this.id_comprador == 0;
-
     }
 }
