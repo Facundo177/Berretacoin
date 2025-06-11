@@ -1,10 +1,10 @@
 package aed;
 
 public class Transaccion implements Comparable<Transaccion> {
-    public int id;
-    public int id_comprador;
+    private int id;
+    private int id_comprador;
     private int id_vendedor;
-    public int monto;
+    private int monto;
 
     public Transaccion(int id, int id_comprador, int id_vendedor, int monto) {
         this.id = id;

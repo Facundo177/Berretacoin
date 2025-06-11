@@ -142,6 +142,19 @@ public class BerretacoinTestsPropios {
         }
     }
 
+    
+
+
+
+
+
+
+
+
+
+
+
+
     // tests que se me fueron ocurriendo
 
     @Test
@@ -153,7 +166,7 @@ public class BerretacoinTestsPropios {
         };
         b.agregarBloque(txs);
         Transaccion res = b.txMayorValorUltimoBloque();
-        assertEquals(2, res.id);
+        assertEquals(2, res.id());
     }
 
     @Test
