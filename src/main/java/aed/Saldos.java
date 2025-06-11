@@ -1,8 +1,8 @@
 package aed;
 
 public class Saldos {
-    Usuario[] heap;
-    int[] handle;
+    private Usuario[] heap;
+    private int[] handle;
 
     // pos = (id_usuario - 1)
     // handle[pos] = posicion del usuario en el heap
