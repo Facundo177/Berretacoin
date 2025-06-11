@@ -7,7 +7,6 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class BerretacoinTestsPropios {
@@ -201,8 +200,8 @@ public class BerretacoinTestsPropios {
         });
         Transaccion hackeada = b.txMayorValorUltimoBloque();
         b.hackearTx();
-        assertEquals(50, hackeada.monto);
-        assertEquals(20, b.txMayorValorUltimoBloque().monto);
+        assertEquals(50, hackeada.monto());
+        assertEquals(20, b.txMayorValorUltimoBloque().monto());
     }
 
     @Test
@@ -214,9 +213,9 @@ public class BerretacoinTestsPropios {
             new Transaccion(3, 1, 2, 10)
         });
         Transaccion[] txs = b.txUltimoBloque();
-        assertEquals(1, txs[0].id);
-        assertEquals(2, txs[1].id);
-        assertEquals(3, txs[2].id);
+        assertEquals(1, txs[0].id());
+        assertEquals(2, txs[1].id());
+        assertEquals(3, txs[2].id());
     }
 
     @Test
@@ -231,7 +230,7 @@ public class BerretacoinTestsPropios {
             new Transaccion(9999, 1, 2, 10)
         });
         Transaccion[] ult = b.txUltimoBloque();
-        assertTrue(ult[0].id_comprador != 0);
+        assertTrue(ult[0].id_comprador() != 0);
     }
 
     @Test
@@ -320,7 +319,7 @@ public class BerretacoinTestsPropios {
                 new Transaccion(i, 1, 2, 1)
             });
         }
-        assertEquals(1, b.txMayorValorUltimoBloque().monto);
+        assertEquals(1, b.txMayorValorUltimoBloque().monto());
     }
 
     // tests para cada operacion
@@ -360,7 +359,7 @@ public class BerretacoinTestsPropios {
             new Transaccion(2, 3, 4, 20)
         };
         b.agregarBloque(txs);
-        assertEquals(2, b.txMayorValorUltimoBloque().id);
+        assertEquals(2, b.txMayorValorUltimoBloque().id());
     }
 
     @Test
@@ -372,8 +371,8 @@ public class BerretacoinTestsPropios {
         };
         b.agregarBloque(txs);
         Transaccion[] res = b.txUltimoBloque();
-        assertEquals(2, res[0].id);
-        assertEquals(5, res[1].id);
+        assertEquals(2, res[0].id());
+        assertEquals(5, res[1].id());
     }
 
     @Test
@@ -444,7 +443,7 @@ public class BerretacoinTestsPropios {
         for (int i = 0; i < usuarios_finales; i++) {
             Transaccion hackeada = b.txMayorValorUltimoBloque();
             b.hackearTx();
-            assertEquals(10000 - i * 500, hackeada.monto);
+            assertEquals(10000 - i * 500, hackeada.monto());
         }
 
         // Validamos que el bloque final quedó vacío
