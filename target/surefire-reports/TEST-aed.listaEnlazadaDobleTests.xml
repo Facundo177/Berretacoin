@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="aed.BerretacoinTests" time="3.151" tests="15" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="aed.listaEnlazadaDobleTests" time="0.091" tests="4" errors="0" skipped="0" failures="0">
   <properties>
-    <property name="jpda.address" value="50934"/>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
@@ -11,15 +10,14 @@
     <property name="user.variant" value=""/>
     <property name="java.vendor.url" value="https://adoptium.net/"/>
     <property name="user.timezone" value="America/Buenos_Aires"/>
-    <property name="forkMode" value="once"/>
     <property name="os.name" value="Windows 11"/>
     <property name="java.vm.specification.version" value="21"/>
     <property name="user.country" value="AR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.1.12-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\Cami\AppData\Local\Temp\surefire3952510066078594567\surefirebooter-20250610143249810_3.jar C:\Users\Cami\AppData\Local\Temp\surefire3952510066078594567 2025-06-10T14-32-49_687-jvmRun1 surefire-20250610143249810_1tmp surefire_0-20250610143249810_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\Cami\AppData\Local\Temp\surefire17472585821814977472\surefirebooter-20250610160603886_3.jar C:\Users\Cami\AppData\Local\Temp\surefire17472585821814977472 2025-06-10T16-06-03_705-jvmRun1 surefire-20250610160603886_1tmp surefire_0-20250610160603886_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="${packageClassName}"/>
+    <property name="test" value="aed.listaEnlazadaDobleTests"/>
     <property name="surefire.test.class.path" value="C:\Users\Cami\Documents\Bibliografia\Berretacoin\target\test-classes;C:\Users\Cami\Documents\Bibliografia\Berretacoin\target\classes;C:\Users\Cami\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\Cami\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\Cami\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Cami\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\Cami\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\Cami\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\Cami"/>
@@ -33,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Cami\AppData\Local\Temp\surefire3952510066078594567\surefirebooter-20250610143249810_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Cami\AppData\Local\Temp\surefire17472585821814977472\surefirebooter-20250610160603886_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.1+12-LTS"/>
@@ -44,7 +42,6 @@
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
-    <property name="jpda.listen" value="true"/>
     <property name="java.vendor.version" value="Temurin-21.0.1+12"/>
     <property name="maven.ext.class.path" value="C:\Users\Cami\.vscode\extensions\oracle.oracle-java-24.0.0\nbcode\java\maven-nblib\netbeans-eventspy.jar"/>
     <property name="localRepository" value="C:\Users\Cami\.m2\repository"/>
@@ -63,21 +60,9 @@
     <property name="java.vm.version" value="21.0.1+12-LTS"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
-    <property name="maven.surefire.debug" value="-agentlib:jdwp=transport=dt_socket,server=n,address=50934"/>
   </properties>
-  <testcase name="hackeoUnicaTransaccion" classname="aed.BerretacoinTests" time="0.072"/>
-  <testcase name="maximoTenedorEsElMinimoCuandoNuevo" classname="aed.BerretacoinTests" time="0.001"/>
-  <testcase name="hackeoTotalDeBloque" classname="aed.BerretacoinTests" time="0.002"/>
-  <testcase name="empatesEnTransaccionMayorValor" classname="aed.BerretacoinTests" time="0.004"/>
-  <testcase name="empatesEnMaximoTenedor" classname="aed.BerretacoinTests" time="0.001"/>
-  <testcase name="agregarVariosBloques" classname="aed.BerretacoinTests" time="0.002"/>
-  <testcase name="multiplesBloquesPequenos" classname="aed.BerretacoinTests" time="0.003"/>
-  <testcase name="hackearVariasVeces" classname="aed.BerretacoinTests" time="0.001"/>
-  <testcase name="agregarBloque" classname="aed.BerretacoinTests" time="0.001"/>
-  <testcase name="bloqueConSoloTransaccionDeCreacion" classname="aed.BerretacoinTests" time="0.001"/>
-  <testcase name="hackearConVariosBloques" classname="aed.BerretacoinTests" time="0.001"/>
-  <testcase name="testStress" classname="aed.BerretacoinTests" time="3.012"/>
-  <testcase name="hackearConUnBloque" classname="aed.BerretacoinTests" time="0.001"/>
-  <testcase name="hackeoAfectaSaldos" classname="aed.BerretacoinTests" time="0"/>
-  <testcase name="unSoloUsuario" classname="aed.BerretacoinTests" time="0"/>
+  <testcase name="eliminarNodos" classname="aed.listaEnlazadaDobleTests" time="0.051"/>
+  <testcase name="variosElementos" classname="aed.listaEnlazadaDobleTests" time="0.001"/>
+  <testcase name="unSoloElemento" classname="aed.listaEnlazadaDobleTests" time="0.001"/>
+  <testcase name="listaVacia" classname="aed.listaEnlazadaDobleTests" time="0"/>
 </testsuite>

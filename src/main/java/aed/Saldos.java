@@ -71,12 +71,12 @@ public class Saldos {
             siftUp(posPadre);
         }
     }
-    private void intercambio(int posElem1, int posElem2){
-        Usuario usuario = this.heap[posElem1];
-        this.heap[posElem1] = this.heap[posElem2];
-        this.heap[posElem2] = usuario;
-        this.handle[this.heap[posElem1].getId()-1] = posElem1;
-        this.handle[this.heap[posElem2].getId()-1] = posElem2;
+    private void intercambio(int posUsuario1, int posUsuario2){
+        Usuario usuario = this.heap[posUsuario1];
+        this.heap[posUsuario1] = this.heap[posUsuario2];
+        this.heap[posUsuario2] = usuario;
+        this.handle[this.heap[posUsuario1].getId()-1] = posUsuario1;
+        this.handle[this.heap[posUsuario2].getId()-1] = posUsuario2;
     }
     // al modificar un saldo reacomodo el heap como corresponda
     public void actualizarSaldo(int id_usuario, int monto){
