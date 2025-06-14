@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Bloque.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp2</a> &gt; <a href="index.source.html" class="el_package">aed</a> &gt; <span class="el_source">Bloque.java</span></div><h1>Bloque.java</h1><pre class="source lang-java linenums">package aed;
 
 import aed.Heap.Tupla;
-import aed.ListaEnlazadaDoble.Nodo;
 
 public class Bloque {
     private ListaEnlazadaDoble&lt;Transaccion&gt; transaccionesOrdenadasPorId;
     private Heap&lt;Transaccion&gt; transaccionesOrdenadasPorMonto;
-
-    // private ColaDePrioridad&lt;NodoHeap&gt; a;
-
-
     private int sumaMontos;
     private int cantTransacciones; 
 
-<span class="fc" id="L16">public Bloque(Transaccion[] transacciones){</span>
-<span class="fc" id="L17">    this.transaccionesOrdenadasPorId = new ListaEnlazadaDoble&lt;&gt;();</span>
-<span class="fc" id="L18">    this.transaccionesOrdenadasPorMonto = new Heap&lt;&gt;(transacciones.length);</span>
-<span class="fc" id="L19">    this.sumaMontos = 0;</span>
-<span class="fc" id="L20">    this.cantTransacciones = 0;</span>
+<span class="fc" id="L11">public Bloque(Transaccion[] transacciones){</span>
+<span class="fc" id="L12">    this.transaccionesOrdenadasPorId = new ListaEnlazadaDoble&lt;&gt;();</span>
+<span class="fc" id="L13">    this.transaccionesOrdenadasPorMonto = new Heap&lt;&gt;(transacciones.length);</span>
+<span class="fc" id="L14">    this.sumaMontos = 0;</span>
+<span class="fc" id="L15">    this.cantTransacciones = 0;</span>
             
-<span class="fc bfc" id="L22" title="All 2 branches covered.">    for (int i = 0; i &lt; transacciones.length; i++) {                                // O(n)</span>
-<span class="fc" id="L23">        Transaccion t = transacciones[i].copiar();                                  // O(1)</span>
-<span class="fc" id="L24">        Handle handle = this.transaccionesOrdenadasPorId.agregarAtras(t);           // O(1)</span>
-        
-<span class="fc" id="L26">        this.transaccionesOrdenadasPorMonto.agregarRapidoConHandle(t, handle);      // O(1)</span>
-<span class="fc bfc" id="L27" title="All 2 branches covered.">        this.sumaMontos += transacciones[i].id_comprador() == 0 ? 0 : transacciones[i].monto();</span>
-<span class="fc bfc" id="L28" title="All 2 branches covered.">        this.cantTransacciones += transacciones[i].id_comprador() == 0 ? 0 : 1;</span>
+<span class="fc bfc" id="L17" title="All 2 branches covered.">    for (int i = 0; i &lt; transacciones.length; i++) {                                // O(n)</span>
+<span class="fc" id="L18">        Transaccion t = transacciones[i].copiar();                                  // O(1)</span>
+<span class="fc" id="L19">        Handle handle = this.transaccionesOrdenadasPorId.agregarAtras(t);           // O(1)</span>
+        // vinculo ambas estructuras a través del handle
+<span class="fc" id="L21">        this.transaccionesOrdenadasPorMonto.agregarRapidoConHandle(t, handle);      // O(1)</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        this.sumaMontos += transacciones[i].esDeCreacion() ? 0 : transacciones[i].monto();</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        this.cantTransacciones += transacciones[i].esDeCreacion() ? 0 : 1;</span>
     
-<span class="fc" id="L30">    }this.transaccionesOrdenadasPorMonto.floyd();    // O(n)</span>
-<span class="fc" id="L31">}</span>
+    }
+<span class="fc" id="L26">    this.transaccionesOrdenadasPorMonto.floyd();    // O(n)</span>
+<span class="fc" id="L27">}</span>
     
     public Transaccion[] transaccionesOrdenadasPorId(){
-<span class="fc" id="L34">        Transaccion[] res = new Transaccion[this.transaccionesOrdenadasPorId.longitud()];</span>
-<span class="fc" id="L35">        Iterador&lt;Transaccion&gt; iterador = this.transaccionesOrdenadasPorId.iterador();</span>
-<span class="fc" id="L36">        int i = 0;</span>
-<span class="fc bfc" id="L37" title="All 2 branches covered.">        while (iterador.haySiguiente()) {</span>
+        // creo un nuevo array para hacer la copia
+<span class="fc" id="L31">        Transaccion[] res = new Transaccion[this.transaccionesOrdenadasPorId.longitud()];</span>
+        // uso el iterador de lista para copiar una por una de las transacciones
+<span class="fc" id="L33">        Iterador&lt;Transaccion&gt; iterador = this.transaccionesOrdenadasPorId.iterador();</span>
+<span class="fc" id="L34">        int i = 0;</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        while (iterador.haySiguiente()) {</span>
+            // el método copiar() de transacción de devuelve un nuevo objeto (en otra posición de memoria)
+            // que es igual al original (el equals() entre ambos da True)
 <span class="fc" id="L38">            res[i] = iterador.siguiente().copiar();</span>
 <span class="fc" id="L39">            i++;</span>
         }
@@ -59,7 +59,7 @@ public class Bloque {
 <span class="fc" id="L59">        Handle handle = max.getHandle();</span>
 <span class="fc" id="L60">        Transaccion maxima = (Transaccion) max.getElem();</span>
 
-        // actualizo los valores usados en el monto medio
+        // Actualizo los valores usados en el monto medio
 <span class="fc bfc" id="L63" title="All 2 branches covered.">        this.sumaMontos -= maxima.id_comprador() == 0 ? 0 : maxima.monto();</span>
 <span class="fc bfc" id="L64" title="All 2 branches covered.">        this.cantTransacciones -= maxima.id_comprador() == 0 ? 0 : 1;</span>
 

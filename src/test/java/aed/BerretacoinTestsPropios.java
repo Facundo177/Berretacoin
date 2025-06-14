@@ -80,7 +80,7 @@ public class BerretacoinTestsPropios {
         int USUARIOS = 10000;
         int BLOQUES = 8000;
         int MAX_TX_POR_BLOQUE = 1000;
-        int MAX_HACKEOS = 100;
+        int MAX_HACKEOS = 500;
         
         Berretacoin sistema = new Berretacoin(USUARIOS);
         SaldoTracker tracker = new SaldoTracker(USUARIOS);        

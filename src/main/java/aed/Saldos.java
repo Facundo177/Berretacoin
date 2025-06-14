@@ -3,9 +3,7 @@ package aed;
 public class Saldos {
     private Heap<Usuario> heap;
     private Handle[] handle;
-
-    // pos = (id_usuario - 1)
-    // handle[pos] = posicion del usuario en el heap
+    // handle_i = (id_usuario - 1)
 
     public Saldos(int n_usuarios){
         this.heap = new Heap<>(n_usuarios);

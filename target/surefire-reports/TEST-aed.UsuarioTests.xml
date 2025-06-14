@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="AR"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17\bin"/>
-    <property name="sun.java.command" value="C:\Users\Facundo\AppData\Local\Temp\surefire10294608460416782671\surefirebooter-20250614121857496_3.jar C:\Users\Facundo\AppData\Local\Temp\surefire10294608460416782671 2025-06-14T12-18-57_398-jvmRun1 surefire-20250614121857496_1tmp surefire_0-20250614121857496_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\Facundo\AppData\Local\Temp\surefire13411310827552048272\surefirebooter-20250614141001435_3.jar C:\Users\Facundo\AppData\Local\Temp\surefire13411310827552048272 2025-06-14T14-10-01_324-jvmRun1 surefire-20250614141001435_1tmp surefire_0-20250614141001435_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\Facundo\Desktop\UBA materias\algo 2\TP-2\Berretacoin\target\test-classes;C:\Users\Facundo\Desktop\UBA materias\algo 2\TP-2\Berretacoin\target\classes;C:\Users\Facundo\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\Facundo\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\Facundo\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Facundo\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\Facundo\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\Facundo\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Facundo\AppData\Local\Temp\surefire10294608460416782671\surefirebooter-20250614121857496_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Facundo\AppData\Local\Temp\surefire13411310827552048272\surefirebooter-20250614141001435_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.13+10-LTS-268"/>
@@ -58,5 +58,5 @@
     <property name="java.class.version" value="61.0"/>
   </properties>
   <testcase name="TestEquals" classname="aed.UsuarioTests" time="0"/>
-  <testcase name="TestCompareTo" classname="aed.UsuarioTests" time="0"/>
+  <testcase name="TestCompareTo" classname="aed.UsuarioTests" time="0.001"/>
 </testsuite>

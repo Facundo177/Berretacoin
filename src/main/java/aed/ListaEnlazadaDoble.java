@@ -24,7 +24,6 @@ public class ListaEnlazadaDoble<T> {
         return this.size;
     }
 
-
     public Handle agregarAtras(T elem) {
         Nodo nuevo = new Nodo(elem);
         Handle handle = new Handle(nuevo);

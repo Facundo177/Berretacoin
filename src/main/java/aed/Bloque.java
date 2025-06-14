@@ -1,15 +1,10 @@
 package aed;
 
 import aed.Heap.Tupla;
-import aed.ListaEnlazadaDoble.Nodo;
 
 public class Bloque {
     private ListaEnlazadaDoble<Transaccion> transaccionesOrdenadasPorId;
     private Heap<Transaccion> transaccionesOrdenadasPorMonto;
-
-    // private ColaDePrioridad<NodoHeap> a;
-
-
     private int sumaMontos;
     private int cantTransacciones; 
 
@@ -22,19 +17,24 @@ public Bloque(Transaccion[] transacciones){
     for (int i = 0; i < transacciones.length; i++) {                                // O(n)
         Transaccion t = transacciones[i].copiar();                                  // O(1)
         Handle handle = this.transaccionesOrdenadasPorId.agregarAtras(t);           // O(1)
-        
+        // vinculo ambas estructuras a través del handle
         this.transaccionesOrdenadasPorMonto.agregarRapidoConHandle(t, handle);      // O(1)
-        this.sumaMontos += transacciones[i].id_comprador() == 0 ? 0 : transacciones[i].monto();
-        this.cantTransacciones += transacciones[i].id_comprador() == 0 ? 0 : 1;
+        this.sumaMontos += transacciones[i].esDeCreacion() ? 0 : transacciones[i].monto();
+        this.cantTransacciones += transacciones[i].esDeCreacion() ? 0 : 1;
     
-    }this.transaccionesOrdenadasPorMonto.floyd();    // O(n)
+    }
+    this.transaccionesOrdenadasPorMonto.floyd();    // O(n)
 }
     
     public Transaccion[] transaccionesOrdenadasPorId(){
+        // creo un nuevo array para hacer la copia
         Transaccion[] res = new Transaccion[this.transaccionesOrdenadasPorId.longitud()];
+        // uso el iterador de lista para copiar una por una de las transacciones
         Iterador<Transaccion> iterador = this.transaccionesOrdenadasPorId.iterador();
         int i = 0;
         while (iterador.haySiguiente()) {
+            // el método copiar() de transacción de devuelve un nuevo objeto (en otra posición de memoria)
+            // que es igual al original (el equals() entre ambos da True)
             res[i] = iterador.siguiente().copiar();
             i++;
         }
@@ -59,7 +59,7 @@ public Bloque(Transaccion[] transacciones){
         Handle handle = max.getHandle();
         Transaccion maxima = (Transaccion) max.getElem();
 
-        // actualizo los valores usados en el monto medio
+        // Actualizo los valores usados en el monto medio
         this.sumaMontos -= maxima.id_comprador() == 0 ? 0 : maxima.monto();
         this.cantTransacciones -= maxima.id_comprador() == 0 ? 0 : 1;
 

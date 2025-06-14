@@ -5,20 +5,20 @@ import java.util.ArrayList;
 public class Heap&lt;T extends Comparable&lt;T&gt;&gt; {
     private ArrayList&lt;Tupla&lt;T&gt;&gt; heap;
 
-<span class="nc" id="L8">    public Heap() {</span>
-<span class="nc" id="L9">        this.heap = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L10">    }</span>
+<span class="fc" id="L8">    public Heap() {</span>
+<span class="fc" id="L9">        this.heap = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L10">    }</span>
 
 <span class="fc" id="L12">    public Heap(int capacidadInicial){</span>
 <span class="fc" id="L13">        this.heap = new ArrayList&lt;&gt;(capacidadInicial);</span>
 <span class="fc" id="L14">    }</span>
 
     public int size(){
-<span class="nc" id="L17">        return this.heap.size();</span>
+<span class="fc" id="L17">        return this.heap.size();</span>
     }
 
     public boolean vacio(){
-<span class="nc" id="L21">        return this.heap.isEmpty();</span>
+<span class="fc" id="L21">        return this.heap.isEmpty();</span>
     }
       
     public T maximo(){
@@ -38,132 +38,139 @@ public class Heap&lt;T extends Comparable&lt;T&gt;&gt; {
 
     public void floyd(){
         // Algoritmo de Floyd -&gt; O(n)
+        // ordena todos los elementos del heap
+
         // hojas van desde n/2 hasta n-1 (se pueden ignorar) y ordeno los nodos internos
-<span class="fc bfc" id="L42" title="All 2 branches covered.">        for (int i = this.heap.size()/2; i &gt;= 0; i--) {</span>
-<span class="fc" id="L43">            this.siftDown(i);</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        for (int i = this.heap.size()/2; i &gt;= 0; i--) {</span>
+<span class="fc" id="L45">            this.siftDown(i);</span>
         }
-<span class="fc" id="L45">    }</span>
+<span class="fc" id="L47">    }</span>
 
+    // agrega un elemento en la posición que le corresponde, respetando el invariante
     public Handle agregar(T elem){
-<span class="nc" id="L48">        int posicion = this.heap.size();</span>
-<span class="nc" id="L49">        Handle handle = new Handle(posicion);</span>
-<span class="nc" id="L50">        Tupla tupla = new Tupla&lt;&gt;(elem, handle);</span>
-<span class="nc" id="L51">        this.heap.add(tupla);</span>
-<span class="nc" id="L52">        this.siftUp(posicion);</span>
+<span class="fc" id="L51">        int posicion = this.heap.size();</span>
+<span class="fc" id="L52">        Handle handle = new Handle(posicion);</span>
+<span class="fc" id="L53">        Tupla tupla = new Tupla&lt;&gt;(elem, handle);</span>
+<span class="fc" id="L54">        this.heap.add(tupla);</span>
+<span class="fc" id="L55">        this.siftUp(posicion);</span>
 
-<span class="nc" id="L54">        return handle;</span>
+<span class="fc" id="L57">        return handle;</span>
     }
 
+    // agrega un elemento al final, sin importar que rompa el invariante de representación
     public Handle agregarRapido(T elem){
-<span class="fc" id="L58">        Handle handle = new Handle(this.heap.size());</span>
-<span class="fc" id="L59">        Tupla tupla = new Tupla&lt;&gt;(elem, handle);</span>
-<span class="fc" id="L60">        this.heap.add(tupla);</span>
+<span class="fc" id="L62">        Handle handle = new Handle(this.heap.size());</span>
+<span class="fc" id="L63">        Tupla tupla = new Tupla&lt;&gt;(elem, handle);</span>
+<span class="fc" id="L64">        this.heap.add(tupla);</span>
 
-<span class="fc" id="L62">        return handle;</span>
+<span class="fc" id="L66">        return handle;</span>
     }
 
+    // método que nos permite hacer un agregado rápido de un elemento que viene acompañado por un handle externo
+    // especialmente útil para interactuar con otras estructuras externas
     public Handle agregarRapidoConHandle(T elem, Handle handle){
-<span class="fc" id="L66">        handle.modificarPosicion(this.heap.size());</span>
-<span class="fc" id="L67">        Tupla tupla = new Tupla&lt;&gt;(elem, handle);</span>
-<span class="fc" id="L68">        this.heap.add(tupla);</span>
+<span class="fc" id="L72">        handle.modificarPosicion(this.heap.size());</span>
+<span class="fc" id="L73">        Tupla tupla = new Tupla&lt;&gt;(elem, handle);</span>
+<span class="fc" id="L74">        this.heap.add(tupla);</span>
 
-<span class="fc" id="L70">        return handle;</span>
+<span class="fc" id="L76">        return handle;</span>
     }
 
+    // nos permite acceder a un elemento en O(1) gracias al Handle
     public Comparable acceder(Handle handle){
-<span class="fc" id="L74">        Tupla tupla = this.heap.get(handle.obtenerPosicion());</span>
-<span class="fc" id="L75">        return tupla.elem;</span>
+<span class="fc" id="L81">        Tupla tupla = this.heap.get(handle.obtenerPosicion());</span>
+<span class="fc" id="L82">        return tupla.elem;</span>
     }
 
+    // acomoda un nodo del heap en la posicion que corresponda, accediendo a el a través del handle
     public void reacomodar(Handle handle){
-<span class="fc" id="L79">        this.siftUp(handle.obtenerPosicion());</span>
-<span class="fc" id="L80">        this.siftDown(handle.obtenerPosicion());</span>
-<span class="fc" id="L81">    }</span>
+<span class="fc" id="L87">        this.siftUp(handle.obtenerPosicion());</span>
+<span class="fc" id="L88">        this.siftDown(handle.obtenerPosicion());</span>
+<span class="fc" id="L89">    }</span>
 
+    // calculo de posiciones
     private int padre(int i){
-<span class="fc" id="L84">        return (i-1)/2;</span>
+<span class="fc" id="L93">        return (i-1)/2;</span>
     }
-
     private int hijoDerecho(int i){
-<span class="fc" id="L88">        return 2*i + 2;</span>
+<span class="fc" id="L96">        return 2*i + 2;</span>
     }
-
     private int hijoIzquierdo(int i){
-<span class="fc" id="L92">        return 2*i + 1;</span>
+<span class="fc" id="L99">        return 2*i + 1;</span>
     }
 
+    // baja las posiciones de un nodo, intercambiándolo con su hijo mayor, siempre que corresponda
     private void siftDown(int posElem){
-<span class="fc" id="L96">        int length = this.heap.size();</span>
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (posElem &gt;= length){</span>
-<span class="fc" id="L98">            return;</span>
+<span class="fc" id="L104">        int length = this.heap.size();</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (posElem &gt;= length){</span>
+<span class="fc" id="L106">            return;</span>
         }
-<span class="fc" id="L100">        Tupla elem = this.heap.get(posElem);</span>
-<span class="fc" id="L101">        int hijoDerecho = this.hijoDerecho(posElem);</span>
-<span class="fc" id="L102">        int hijoIzquierdo = this.hijoIzquierdo(posElem); </span>
-<span class="fc bfc" id="L103" title="All 4 branches covered.">        if (hijoDerecho &gt;= length &amp;&amp; hijoIzquierdo &gt;= length){</span>
-<span class="fc" id="L104">            return;</span>
-<span class="fc bfc" id="L105" title="All 2 branches covered.">        } else if (hijoDerecho &gt;= length) {</span>
-<span class="fc bfc" id="L106" title="All 2 branches covered.">            if (elem.compareTo(this.heap.get(hijoIzquierdo)) &lt; 0){</span>
-<span class="fc" id="L107">                intercambio(posElem, hijoIzquierdo);</span>
+<span class="fc" id="L108">        Tupla elem = this.heap.get(posElem);</span>
+<span class="fc" id="L109">        int hijoDerecho = this.hijoDerecho(posElem);</span>
+<span class="fc" id="L110">        int hijoIzquierdo = this.hijoIzquierdo(posElem); </span>
+<span class="fc bfc" id="L111" title="All 4 branches covered.">        if (hijoDerecho &gt;= length &amp;&amp; hijoIzquierdo &gt;= length){</span>
+<span class="fc" id="L112">            return;</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        } else if (hijoDerecho &gt;= length) {</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">            if (elem.compareTo(this.heap.get(hijoIzquierdo)) &lt; 0){</span>
+<span class="fc" id="L115">                intercambio(posElem, hijoIzquierdo);</span>
             }
         } else {
-<span class="fc" id="L110">            Tupla der = this.heap.get(hijoDerecho);</span>
-<span class="fc" id="L111">            Tupla izq = this.heap.get(hijoIzquierdo);</span>
-<span class="fc bfc" id="L112" title="All 4 branches covered.">            if (elem.compareTo(der) &lt; 0 || elem.compareTo(izq) &lt; 0){</span>
-<span class="fc bfc" id="L113" title="All 2 branches covered.">                int hijoMayor = der.compareTo(izq) &gt; 0 ? hijoDerecho : hijoIzquierdo;</span>
-<span class="fc" id="L114">                intercambio(posElem, hijoMayor);</span>
-<span class="fc" id="L115">                siftDown(hijoMayor);</span>
+<span class="fc" id="L118">            Tupla der = this.heap.get(hijoDerecho);</span>
+<span class="fc" id="L119">            Tupla izq = this.heap.get(hijoIzquierdo);</span>
+<span class="fc bfc" id="L120" title="All 4 branches covered.">            if (elem.compareTo(der) &lt; 0 || elem.compareTo(izq) &lt; 0){</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">                int hijoMayor = der.compareTo(izq) &gt; 0 ? hijoDerecho : hijoIzquierdo;</span>
+<span class="fc" id="L122">                intercambio(posElem, hijoMayor);</span>
+<span class="fc" id="L123">                siftDown(hijoMayor);</span>
             }
         }
-<span class="fc" id="L118">    }</span>
+<span class="fc" id="L126">    }</span>
 
+    // sube un nodo de posición, intercambiandolo con el padre, siempre que corresponda
     private void siftUp(int posElem){
-<span class="fc" id="L121">        int length = this.heap.size();</span>
-<span class="pc bpc" id="L122" title="1 of 4 branches missed.">        if (posElem &gt;= length || posElem &lt;= 0){</span>
-<span class="fc" id="L123">            return;</span>
+<span class="fc" id="L130">        int length = this.heap.size();</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        if (posElem &lt;= 0){</span>
+<span class="fc" id="L132">            return;</span>
         }
-<span class="fc" id="L125">        Tupla elem = this.heap.get(posElem);</span>
-<span class="fc" id="L126">        int posPadre = this.padre(posElem);</span>
-<span class="fc" id="L127">        Tupla padre = this.heap.get(posPadre);</span>
-<span class="fc bfc" id="L128" title="All 2 branches covered.">        if (elem.compareTo(padre) &gt; 0) {</span>
-<span class="fc" id="L129">            intercambio(posElem, posPadre);</span>
-<span class="fc" id="L130">            siftUp(posPadre);</span>
+<span class="fc" id="L134">        Tupla elem = this.heap.get(posElem);</span>
+<span class="fc" id="L135">        int posPadre = this.padre(posElem);</span>
+<span class="fc" id="L136">        Tupla padre = this.heap.get(posPadre);</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        if (elem.compareTo(padre) &gt; 0) {</span>
+<span class="fc" id="L138">            intercambio(posElem, posPadre);</span>
+<span class="fc" id="L139">            siftUp(posPadre);</span>
         }
-<span class="fc" id="L132">    }</span>
-
-    private void intercambio(int pos1, int pos2){
-<span class="fc" id="L135">        Tupla&lt;T&gt; t1 = this.heap.get(pos1);</span>
-<span class="fc" id="L136">        Tupla&lt;T&gt; t2 = this.heap.get(pos2);</span>
-<span class="fc" id="L137">        this.heap.set(pos1, t2);</span>
-<span class="fc" id="L138">        t2.handle.modificarPosicion(pos1);</span>
-<span class="fc" id="L139">        this.heap.set(pos2, t1);</span>
-<span class="fc" id="L140">        t1.handle.modificarPosicion(pos2);</span>
 <span class="fc" id="L141">    }</span>
 
+    // intercambia la posición de dos nodos, actualizando su handle también
+    private void intercambio(int pos1, int pos2){
+<span class="fc" id="L145">        Tupla&lt;T&gt; t1 = this.heap.get(pos1);</span>
+<span class="fc" id="L146">        Tupla&lt;T&gt; t2 = this.heap.get(pos2);</span>
+<span class="fc" id="L147">        this.heap.set(pos1, t2);</span>
+<span class="fc" id="L148">        t2.handle.modificarPosicion(pos1);</span>
+<span class="fc" id="L149">        this.heap.set(pos2, t1);</span>
+<span class="fc" id="L150">        t1.handle.modificarPosicion(pos2);</span>
+<span class="fc" id="L151">    }</span>
+
+    // clase interna que representa los nodos de nuestro heap
     class Tupla&lt;T extends Comparable&lt;T&gt;&gt; implements Comparable&lt;Tupla&lt;T&gt;&gt;{
         private T elem;
         private Handle handle;
 
-<span class="fc" id="L147">        public Tupla(T elem, Handle handle) {</span>
-<span class="fc" id="L148">            this.elem = elem;</span>
-<span class="fc" id="L149">            this.handle = handle;</span>
-<span class="fc" id="L150">        }</span>
+<span class="fc" id="L158">        public Tupla(T elem, Handle handle) {</span>
+<span class="fc" id="L159">            this.elem = elem;</span>
+<span class="fc" id="L160">            this.handle = handle;</span>
+<span class="fc" id="L161">        }</span>
+
         public T getElem() {
-<span class="fc" id="L152">            return elem;</span>
+<span class="fc" id="L164">            return elem;</span>
         }
-        public void setElem(T elem) {
-<span class="nc" id="L155">            this.elem = elem;</span>
-<span class="nc" id="L156">        }</span>
+
         public Handle getHandle() {
-<span class="fc" id="L158">            return handle;</span>
+<span class="fc" id="L168">            return handle;</span>
         }
-        public void setHandle(Handle handle) {
-<span class="nc" id="L161">            this.handle = handle;</span>
-<span class="nc" id="L162">        }</span>
 
         @Override
         public int compareTo(Tupla&lt;T&gt; o) {
-<span class="fc" id="L166">            return this.elem.compareTo(o.elem);</span>
+<span class="fc" id="L173">            return this.elem.compareTo(o.elem);</span>
         }
     }
 

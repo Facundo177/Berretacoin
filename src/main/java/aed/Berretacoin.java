@@ -69,8 +69,8 @@ public class Berretacoin {
             saldos.actualizarSaldo(t.id_vendedor(), -t.monto());    // O(logP)
         }
 
-        // los tests piden que se actualicen ambos saldos, 
-        // haciendo que solo el vendedor pierda el dinero, "se lo lleva el hacker", no pasan
+        // en total la complejidad se puede expresar como O(logn + logP)
+
     }
 }
 

@@ -68,11 +68,18 @@ public class ListaEnlazadaDobleTests{
         Nodo nodo23 = (Nodo) h23.obtenerPuntero();
         Nodo nodo34 = (Nodo) h34.obtenerPuntero();
         Nodo nodo45 = (Nodo) h45.obtenerPuntero();
+        Handle hnull = new Handle(2);
 
         //elimino un null
         int l1 = lista.longitud();
         lista.eliminarNodo(null);
         assertEquals(l1, lista.longitud());
+
+        // elimino un Handle no nulo cuyo puntero a un nodo es null
+        int l2 = lista.longitud();
+        lista.eliminarNodo(hnull);
+        assertEquals(l2, lista.longitud());
+
 
         //elimino al inicio
         lista.eliminarNodo(h12);
@@ -100,6 +107,8 @@ public class ListaEnlazadaDobleTests{
         assertEquals(0, lista.longitud());
         Iterador<Integer> iterador = lista.iterador();
         assertFalse(iterador.haySiguiente());
+
+        
     }
 
 }

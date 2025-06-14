@@ -38,12 +38,15 @@ public class Heap<T extends Comparable<T>> {
 
     public void floyd(){
         // Algoritmo de Floyd -> O(n)
+        // ordena todos los elementos del heap
+
         // hojas van desde n/2 hasta n-1 (se pueden ignorar) y ordeno los nodos internos
         for (int i = this.heap.size()/2; i >= 0; i--) {
             this.siftDown(i);
         }
     }
 
+    // agrega un elemento en la posición que le corresponde, respetando el invariante
     public Handle agregar(T elem){
         int posicion = this.heap.size();
         Handle handle = new Handle(posicion);
@@ -54,6 +57,7 @@ public class Heap<T extends Comparable<T>> {
         return handle;
     }
 
+    // agrega un elemento al final, sin importar que rompa el invariante de representación
     public Handle agregarRapido(T elem){
         Handle handle = new Handle(this.heap.size());
         Tupla tupla = new Tupla<>(elem, handle);
@@ -62,6 +66,8 @@ public class Heap<T extends Comparable<T>> {
         return handle;
     }
 
+    // método que nos permite hacer un agregado rápido de un elemento que viene acompañado por un handle externo
+    // especialmente útil para interactuar con otras estructuras externas
     public Handle agregarRapidoConHandle(T elem, Handle handle){
         handle.modificarPosicion(this.heap.size());
         Tupla tupla = new Tupla<>(elem, handle);
@@ -70,28 +76,30 @@ public class Heap<T extends Comparable<T>> {
         return handle;
     }
 
+    // nos permite acceder a un elemento en O(1) gracias al Handle
     public Comparable acceder(Handle handle){
         Tupla tupla = this.heap.get(handle.obtenerPosicion());
         return tupla.elem;
     }
 
+    // acomoda un nodo del heap en la posicion que corresponda, accediendo a el a través del handle
     public void reacomodar(Handle handle){
         this.siftUp(handle.obtenerPosicion());
         this.siftDown(handle.obtenerPosicion());
     }
 
+    // calculo de posiciones
     private int padre(int i){
         return (i-1)/2;
     }
-
     private int hijoDerecho(int i){
         return 2*i + 2;
     }
-
     private int hijoIzquierdo(int i){
         return 2*i + 1;
     }
 
+    // baja las posiciones de un nodo, intercambiándolo con su hijo mayor, siempre que corresponda
     private void siftDown(int posElem){
         int length = this.heap.size();
         if (posElem >= length){
@@ -117,9 +125,10 @@ public class Heap<T extends Comparable<T>> {
         }
     }
 
+    // sube un nodo de posición, intercambiandolo con el padre, siempre que corresponda
     private void siftUp(int posElem){
         int length = this.heap.size();
-        if (posElem >= length || posElem <= 0){
+        if (posElem <= 0){
             return;
         }
         Tupla elem = this.heap.get(posElem);
@@ -131,6 +140,7 @@ public class Heap<T extends Comparable<T>> {
         }
     }
 
+    // intercambia la posición de dos nodos, actualizando su handle también
     private void intercambio(int pos1, int pos2){
         Tupla<T> t1 = this.heap.get(pos1);
         Tupla<T> t2 = this.heap.get(pos2);
@@ -140,6 +150,7 @@ public class Heap<T extends Comparable<T>> {
         t1.handle.modificarPosicion(pos2);
     }
 
+    // clase interna que representa los nodos de nuestro heap
     class Tupla<T extends Comparable<T>> implements Comparable<Tupla<T>>{
         private T elem;
         private Handle handle;
@@ -148,17 +159,13 @@ public class Heap<T extends Comparable<T>> {
             this.elem = elem;
             this.handle = handle;
         }
+
         public T getElem() {
             return elem;
         }
-        public void setElem(T elem) {
-            this.elem = elem;
-        }
+
         public Handle getHandle() {
             return handle;
-        }
-        public void setHandle(Handle handle) {
-            this.handle = handle;
         }
 
         @Override

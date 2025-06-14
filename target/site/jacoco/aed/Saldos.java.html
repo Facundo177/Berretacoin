@@ -3,29 +3,27 @@
 public class Saldos {
     private Heap&lt;Usuario&gt; heap;
     private Handle[] handle;
+    // handle_i = (id_usuario - 1)
 
-    // pos = (id_usuario - 1)
-    // handle[pos] = posicion del usuario en el heap
+<span class="fc" id="L8">    public Saldos(int n_usuarios){</span>
+<span class="fc" id="L9">        this.heap = new Heap&lt;&gt;(n_usuarios);</span>
+<span class="fc" id="L10">        this.handle = new Handle[n_usuarios];</span>
 
-<span class="fc" id="L10">    public Saldos(int n_usuarios){</span>
-<span class="fc" id="L11">        this.heap = new Heap&lt;&gt;(n_usuarios);</span>
-<span class="fc" id="L12">        this.handle = new Handle[n_usuarios];</span>
-
-<span class="fc bfc" id="L14" title="All 2 branches covered.">        for (int i = 0; i &lt; n_usuarios; i++){</span>
-<span class="fc" id="L15">            Handle handle = this.heap.agregarRapido(new Usuario(i+1));</span>
-<span class="fc" id="L16">            this.handle[i] = handle;</span>
+<span class="fc bfc" id="L12" title="All 2 branches covered.">        for (int i = 0; i &lt; n_usuarios; i++){</span>
+<span class="fc" id="L13">            Handle handle = this.heap.agregarRapido(new Usuario(i+1));</span>
+<span class="fc" id="L14">            this.handle[i] = handle;</span>
         }
-<span class="fc" id="L18">    }</span>
+<span class="fc" id="L16">    }</span>
 
     public int maximoTenedor(){
-<span class="fc" id="L21">        return this.heap.maximo().getId();</span>
+<span class="fc" id="L19">        return this.heap.maximo().getId();</span>
     }
 
     public void actualizarSaldo(int id_usuario, int monto){
-<span class="fc" id="L25">        Handle handle = this.handle[id_usuario-1];</span>
-<span class="fc" id="L26">        Usuario usuario = (Usuario) this.heap.acceder(handle);</span>
-<span class="fc" id="L27">        usuario.setSaldo(usuario.getSaldo() + monto);</span>
-<span class="fc" id="L28">        this.heap.reacomodar(handle);</span>
-<span class="fc" id="L29">    }</span>
+<span class="fc" id="L23">        Handle handle = this.handle[id_usuario-1];</span>
+<span class="fc" id="L24">        Usuario usuario = (Usuario) this.heap.acceder(handle);</span>
+<span class="fc" id="L25">        usuario.setSaldo(usuario.getSaldo() + monto);</span>
+<span class="fc" id="L26">        this.heap.reacomodar(handle);</span>
+<span class="fc" id="L27">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
