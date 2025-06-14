@@ -13,12 +13,12 @@ public class Transaccion implements Comparable&lt;Transaccion&gt; {
 <span class="fc" id="L13">        this.monto = monto;</span>
 <span class="fc" id="L14">    }</span>
 
-    // Es positivo si el monto el mayor que el de otro, o en caso de empate, si el id es mayor que el otro
+    // Es positivo si el monto es mayor que el de otro, o en caso de empate, si el id es mayor que el de otro
     @Override
     public int compareTo(Transaccion otro) {
-<span class="pc bpc" id="L19" title="1 of 2 branches missed.">        if(otro == null){</span>
-<span class="nc" id="L20">            String mensajeDeError = &quot;No puede compararse con null&quot;;</span>
-<span class="nc" id="L21">            throw new IllegalArgumentException(mensajeDeError);</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        if(otro == null){</span>
+<span class="fc" id="L20">            String mensajeDeError = &quot;No puede compararse con null&quot;;</span>
+<span class="fc" id="L21">            throw new IllegalArgumentException(mensajeDeError);</span>
         }
 <span class="fc bfc" id="L23" title="All 2 branches covered.">        if ((this.monto - otro.monto) == 0){</span>
 <span class="fc" id="L24">            return this.id - otro.id;</span>
@@ -28,16 +28,16 @@ public class Transaccion implements Comparable&lt;Transaccion&gt; {
 
     @Override
     public boolean equals(Object otro){
-<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        if (otro == null){</span>
-<span class="nc" id="L32">            return false;</span>
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        } else if (otro.getClass() != this.getClass()) {</span>
-<span class="nc" id="L34">            return false;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if (otro == null){</span>
+<span class="fc" id="L32">            return false;</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        } else if (otro.getClass() != this.getClass()) {</span>
+<span class="fc" id="L34">            return false;</span>
         } else{
 <span class="fc" id="L36">            Transaccion ts = (Transaccion) otro;</span>
-<span class="pc bpc" id="L37" title="1 of 2 branches missed.">            boolean sonIguales = (this.id == ts.id) &amp;&amp; </span>
-<span class="pc bpc" id="L38" title="1 of 2 branches missed.">                                (this.id_comprador == ts.id_comprador) &amp;&amp; </span>
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">                                (this.id_vendedor == ts.id_vendedor) &amp;&amp; </span>
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">                                (this.monto == ts.monto);</span>
+<span class="fc bfc" id="L37" title="All 8 branches covered.">            boolean sonIguales = (this.id == ts.id) &amp;&amp; </span>
+                                (this.id_comprador == ts.id_comprador) &amp;&amp; 
+                                (this.id_vendedor == ts.id_vendedor) &amp;&amp; 
+                                (this.monto == ts.monto);
 <span class="fc" id="L41">            return sonIguales;</span>
         }
     }
@@ -55,7 +55,7 @@ public class Transaccion implements Comparable&lt;Transaccion&gt; {
     }
 
     public int id() {
-<span class="nc" id="L58">        return id;</span>
+<span class="fc" id="L58">        return id;</span>
     }
 
     public Transaccion copiar(){
@@ -64,7 +64,6 @@ public class Transaccion implements Comparable&lt;Transaccion&gt; {
 
     public boolean esDeCreacion(){
 <span class="fc bfc" id="L66" title="All 2 branches covered.">        return this.id_comprador == 0;</span>
-
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

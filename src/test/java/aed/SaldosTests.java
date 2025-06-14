@@ -14,22 +14,20 @@ public class SaldosTests {
     
     @Test
     public void MaxiumoTenedorTests() {
+        Saldos saldos = new Saldos(5);
         
-    Saldos saldos = new Saldos(2);
-
-    assertEquals(1, saldos.maximoTenedor());
-
-    saldos.actualizarSaldo(2, 5);
-
-    assertEquals(2, saldos.maximoTenedor());
-
-    saldos.actualizarSaldo(2, -5);
-
-    assertEquals(1, saldos.maximoTenedor());
-
-
+        assertEquals(1, saldos.maximoTenedor());
+        
+        saldos.actualizarSaldo(2, 5);
+        assertEquals(2, saldos.maximoTenedor());
+        
+        saldos.actualizarSaldo(2, -5);
+        assertEquals(1, saldos.maximoTenedor());
+        
+        saldos.actualizarSaldo(4, 10);
+        saldos.actualizarSaldo(4, -4);
+        saldos.actualizarSaldo(5, -2);
+        assertEquals(4, saldos.maximoTenedor());
 
     }
-
-
 }

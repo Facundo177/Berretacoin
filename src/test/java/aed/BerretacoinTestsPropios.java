@@ -9,6 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
+
+// mvn jacoco:prepare-agent test install jacoco:report
+
+
 public class BerretacoinTestsPropios {
     // copio lo mismo que esta en el archivo BerretacoinTests.java
     private Berretacoin berretacoin;

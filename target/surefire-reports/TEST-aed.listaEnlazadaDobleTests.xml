@@ -1,68 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="aed.listaEnlazadaDobleTests" time="0.091" tests="4" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="aed.ListaEnlazadaDobleTests" time="0.004" tests="4" errors="0" skipped="0" failures="0">
   <properties>
-    <property name="java.specification.version" value="21"/>
+    <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\Cami\Documents\Bibliografia\Berretacoin\target\test-classes;C:\Users\Cami\Documents\Bibliografia\Berretacoin\target\classes;C:\Users\Cami\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\Cami\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\Cami\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Cami\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\Cami\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\Cami\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
-    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="java.class.path" value="C:\Users\Facundo\Desktop\UBA materias\algo 2\TP-2\Berretacoin\target\test-classes;C:\Users\Facundo\Desktop\UBA materias\algo 2\TP-2\Berretacoin\target\classes;C:\Users\Facundo\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\Facundo\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\Facundo\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Facundo\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\Facundo\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\Facundo\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
-    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="user.timezone" value="America/Buenos_Aires"/>
     <property name="os.name" value="Windows 11"/>
-    <property name="java.vm.specification.version" value="21"/>
-    <property name="user.country" value="AR"/>
+    <property name="java.vm.specification.version" value="17"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.1.12-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\Cami\AppData\Local\Temp\surefire17472585821814977472\surefirebooter-20250610160603886_3.jar C:\Users\Cami\AppData\Local\Temp\surefire17472585821814977472 2025-06-10T16-06-03_705-jvmRun1 surefire-20250610160603886_1tmp surefire_0-20250610160603886_2tmp"/>
+    <property name="user.country" value="AR"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17\bin"/>
+    <property name="sun.java.command" value="C:\Users\Facundo\AppData\Local\Temp\surefire10294608460416782671\surefirebooter-20250614121857496_3.jar C:\Users\Facundo\AppData\Local\Temp\surefire10294608460416782671 2025-06-14T12-18-57_398-jvmRun1 surefire-20250614121857496_1tmp surefire_0-20250614121857496_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="aed.listaEnlazadaDobleTests"/>
-    <property name="surefire.test.class.path" value="C:\Users\Cami\Documents\Bibliografia\Berretacoin\target\test-classes;C:\Users\Cami\Documents\Bibliografia\Berretacoin\target\classes;C:\Users\Cami\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\Cami\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\Cami\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Cami\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\Cami\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\Cami\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\Facundo\Desktop\UBA materias\algo 2\TP-2\Berretacoin\target\test-classes;C:\Users\Facundo\Desktop\UBA materias\algo 2\TP-2\Berretacoin\target\classes;C:\Users\Facundo\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\Facundo\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\Facundo\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Facundo\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\Facundo\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\Facundo\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="C:\Users\Cami"/>
+    <property name="user.home" value="C:\Users\Facundo"/>
     <property name="user.language" value="es"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.version.date" value="2023-10-17"/>
-    <property name="java.home" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.1.12-hotspot"/>
+    <property name="java.version.date" value="2024-10-15"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-17"/>
     <property name="file.separator" value="\"/>
-    <property name="basedir" value="C:\Users\Cami\Documents\Bibliografia\Berretacoin"/>
+    <property name="basedir" value="C:\Users\Facundo\Desktop\UBA materias\algo 2\TP-2\Berretacoin"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Cami\AppData\Local\Temp\surefire17472585821814977472\surefirebooter-20250610160603886_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Facundo\AppData\Local\Temp\surefire10294608460416782671\surefirebooter-20250614121857496_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="21.0.1+12-LTS"/>
-    <property name="user.name" value="Cami"/>
-    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="java.runtime.version" value="17.0.13+10-LTS-268"/>
+    <property name="user.name" value="Facundo"/>
     <property name="path.separator" value=";"/>
     <property name="os.version" value="10.0"/>
-    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
-    <property name="file.encoding" value="UTF-8"/>
-    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
-    <property name="java.vendor.version" value="Temurin-21.0.1+12"/>
-    <property name="maven.ext.class.path" value="C:\Users\Cami\.vscode\extensions\oracle.oracle-java-24.0.0\nbcode\java\maven-nblib\netbeans-eventspy.jar"/>
-    <property name="localRepository" value="C:\Users\Cami\.m2\repository"/>
-    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
-    <property name="java.io.tmpdir" value="C:\Users\Cami\AppData\Local\Temp\"/>
-    <property name="java.version" value="21.0.1"/>
-    <property name="user.dir" value="C:\Users\Cami\Documents\Bibliografia\Berretacoin"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\Facundo\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\Facundo\AppData\Local\Temp\"/>
+    <property name="java.version" value="17.0.13"/>
+    <property name="user.dir" value="C:\Users\Facundo\Desktop\UBA materias\algo 2\TP-2\Berretacoin"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="native.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.1.12-hotspot\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python38\Scripts\;C:\Python38\;C:\Program Files\Eclipse Adoptium\jdk-21.0.1.12-hotspot\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python38\Scripts\;C:\Python38\;C:\Program Files\Eclipse Adoptium\jdk-21.0.1.12-hotspot\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Users\Cami\AppData\Local\Microsoft\WindowsApps;C:\Users\Cami\AppData\Local\Programs\Python\Python311\Scripts;C:\Users\Cami\AppData\Local\Programs\Python\Python311;C:\ffmpeg\bin;C:\Users\Cami\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Cami\AppData\Roaming\cabal\bin;C:\tools\ghc-9.8.2\bin;C:\ghcup\bin;;C:\Users\Cami\Downloads\apache-maven-3.9.9-bin.zip\apache-maven-3.9.9\bin;C:\Users\Cami\AppData\Local\spicetify;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-17\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\ProgramData\chocolatey\bin;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Users\Facundo\AppData\Local\Microsoft\WindowsApps;C:\Users\Facundo\AppData\Local\Programs\Microsoft VS Code\bin;C:\ProgramData\chocolatey\lib\maven\apache-maven-3.9.10\bin;."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
-    <property name="stderr.encoding" value="Cp1252"/>
-    <property name="java.vendor" value="Eclipse Adoptium"/>
-    <property name="java.vm.version" value="21.0.1+12-LTS"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="17.0.13+10-LTS-268"/>
+    <property name="java.specification.maintenance.version" value="1"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
-    <property name="java.class.version" value="65.0"/>
+    <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="eliminarNodos" classname="aed.listaEnlazadaDobleTests" time="0.051"/>
-  <testcase name="variosElementos" classname="aed.listaEnlazadaDobleTests" time="0.001"/>
-  <testcase name="unSoloElemento" classname="aed.listaEnlazadaDobleTests" time="0.001"/>
-  <testcase name="listaVacia" classname="aed.listaEnlazadaDobleTests" time="0"/>
+  <testcase name="eliminarNodos" classname="aed.ListaEnlazadaDobleTests" time="0.002"/>
+  <testcase name="variosElementos" classname="aed.ListaEnlazadaDobleTests" time="0"/>
+  <testcase name="unSoloElemento" classname="aed.ListaEnlazadaDobleTests" time="0"/>
+  <testcase name="listaVacia" classname="aed.ListaEnlazadaDobleTests" time="0"/>
 </testsuite>

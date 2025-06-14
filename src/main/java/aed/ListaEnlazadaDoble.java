@@ -9,7 +9,7 @@ public class ListaEnlazadaDoble<T> {
         T valor;
         Nodo sig;
         Nodo ant;
-        NodoHeap handle;
+        Handle handle;
         
         Nodo(T v) {valor = v;}
     }
@@ -25,8 +25,9 @@ public class ListaEnlazadaDoble<T> {
     }
 
 
-    public Nodo agregarAtras(T elem) {
+    public Handle agregarAtras(T elem) {
         Nodo nuevo = new Nodo(elem);
+        Handle handle = new Handle(nuevo);
         if (this.primero == null) {
             this.primero = nuevo;
             this.ultimo = nuevo;
@@ -36,7 +37,7 @@ public class ListaEnlazadaDoble<T> {
             this.ultimo = nuevo;
         }
         this.size++;
-        return nuevo;
+        return handle;
     }
 
     public T obtener(int i) {
@@ -53,7 +54,11 @@ public class ListaEnlazadaDoble<T> {
         return this.ultimo.valor;
     }
 
-    public void eliminarNodo(Nodo nodo){
+    public void eliminarNodo(Handle handle){
+        if (handle == null){
+            return;
+        }
+        Nodo nodo = (Nodo) handle.obtenerPuntero();
         if (nodo == null){
             return;
         }
@@ -76,17 +81,6 @@ public class ListaEnlazadaDoble<T> {
         }
 
         this.size--;
-    }
-
-    public ListaEnlazadaDoble(ListaEnlazadaDoble<T> lista) {
-        this.primero = new Nodo(lista.obtener(0));
-        Nodo actual = this.primero;
-        for(int i = 0; i < lista.longitud()-1; i++){
-            actual.sig = new Nodo(lista.obtener(i+1));
-            actual = actual.sig;
-        }  
-        this.ultimo = actual;
-        this.size = lista.longitud();
     }
 
     private class ListaIterador implements Iterador<T> {

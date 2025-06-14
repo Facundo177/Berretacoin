@@ -32,14 +32,22 @@ public class TransaccionesTests {
     public void TestEquals() {
         Transaccion t1 = new Transaccion (1, 2, 1, 20);
         Transaccion t2 = new Transaccion (1, 2, 1, 20);
-        Transaccion t3 = new Transaccion (3, 8, 3, 10);
-        Transaccion t4 = new Transaccion (3, 8, 3, 11);
-        Transaccion t5 = null;
+        Transaccion t3 = new Transaccion (1, 2, 1, 10);
+        Transaccion t4 = new Transaccion (1, 2, 3, 20);
+        Transaccion t5 = new Transaccion (1, 6, 3, 20);
+        Transaccion t6 = new Transaccion (2, 6, 3, 20);
+        Transaccion tn = null;
         
         assertTrue(t1.equals(t2));
         assertFalse(t1.equals(t3));
-        assertFalse(t3.equals(t4));
-        assertFalse(t4.equals(t5));
+        assertFalse(t4.equals(t1));
+        assertFalse(t5.equals(t4));
+        assertFalse(t5.equals(t6));
+        assertFalse(t4.equals(tn));
+
+        Usuario usuario = new Usuario(0);
+
+        assertFalse(t1.equals(usuario));
     }
 
     @Test

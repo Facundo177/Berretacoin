@@ -5,56 +5,73 @@ public class Berretacoin {
     private Saldos saldos;
 
 <span class="fc" id="L7">    public Berretacoin(int n_usuarios){</span>
-<span class="fc" id="L8">        this.blockchain = new ListaEnlazadaDoble&lt;&gt;();   // O(1)</span>
-<span class="fc" id="L9">        this.saldos = new Saldos(n_usuarios);           // O(P)</span>
-<span class="fc" id="L10">    }</span>
+        // tomamos que los pedidos de memoria son en O(1)
+<span class="fc" id="L9">        this.blockchain = new ListaEnlazadaDoble&lt;&gt;();   // O(1)</span>
+        // el constructor hace un ciclo que depende de la cantidad de usuarios
+<span class="fc" id="L11">        this.saldos = new Saldos(n_usuarios);           // O(P)</span>
+<span class="fc" id="L12">    }</span>
 
     public void agregarBloque(Transaccion[] transacciones){
-<span class="fc" id="L13">        Bloque bloque = new Bloque(transacciones);      // O(n)</span>
-<span class="fc" id="L14">        this.blockchain.agregarAtras(bloque);           // O(1)</span>
+        // el constructor de bloque hace un ciclo por el tamaño de las transacciones recibidas 
+        // y después el algoritmo de Floyd
+        // ambos O(n)
+<span class="fc" id="L18">        Bloque bloque = new Bloque(transacciones);  // O(n)</span>
+<span class="fc" id="L19">        this.blockchain.agregarAtras(bloque);       // O(1)</span>
 
-<span class="fc bfc" id="L16" title="All 2 branches covered.">        for (Transaccion t : transacciones) {           // O(n * logP)</span>
-<span class="fc bfc" id="L17" title="All 2 branches covered.">            if (t.esDeCreacion()){</span>
-<span class="fc" id="L18">                this.saldos.actualizarSaldo(t.id_vendedor(), t.monto());</span>
-<span class="fc" id="L19">            } else {</span>
-<span class="fc" id="L20">                this.saldos.actualizarSaldo(t.id_comprador(), -t.monto());</span>
-<span class="fc" id="L21">                this.saldos.actualizarSaldo(t.id_vendedor(), t.monto());</span>
+        // por cada transaccion (n) se hace una actualización o dos de los saldos (logP)
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        for (Transaccion t : transacciones) {   // O(n * logP)</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">            if (t.esDeCreacion()){</span>
+<span class="fc" id="L24">                this.saldos.actualizarSaldo(t.id_vendedor(), t.monto());</span>
+            } else {
+<span class="fc" id="L26">                this.saldos.actualizarSaldo(t.id_comprador(), -t.monto());</span>
+<span class="fc" id="L27">                this.saldos.actualizarSaldo(t.id_vendedor(), t.monto());</span>
             }
         }
-<span class="fc" id="L24">    }</span>
+<span class="fc" id="L30">    }</span>
 
+    // obtener el ultimo bloque es en tiempo constante
+    // leer el mayor valor en una cola de prioridad es en tiempo constante 
     public Transaccion txMayorValorUltimoBloque(){
-<span class="fc" id="L27">        return this.blockchain.obtenerUltimo().mayorTransaccion();  // O(1)</span>
+<span class="fc" id="L35">        return this.blockchain.obtenerUltimo().mayorTransaccion();  // O(1)</span>
     }
 
+    // obtener el ultimo bloque es en tiempo constante
+    // copiar cada transacción en una lista tiene una complejidad lineal 
     public Transaccion[] txUltimoBloque(){
-<span class="fc" id="L31">        return this.blockchain.obtenerUltimo().transaccionesOrdenadasPorId();   // O(n)</span>
+<span class="fc" id="L41">        return this.blockchain.obtenerUltimo().transaccionesOrdenadasPorId();   // O(n)</span>
     }
 
+    // leer el mayor valor de un heap es en tiempo constante
     public int maximoTenedor(){
-<span class="fc" id="L35">        return this.saldos.maximoTenedor();     // O(1)</span>
+<span class="fc" id="L46">        return this.saldos.maximoTenedor();     // O(1)</span>
     }
 
+    // calcular el monto medio es hacer una división entre dos valores (complejidad constante)
     public int montoMedioUltimoBloque(){
-<span class="fc" id="L39">        return this.blockchain.obtenerUltimo().montoMedio();    // O(1)</span>
+<span class="fc" id="L51">        return this.blockchain.obtenerUltimo().montoMedio();    // O(1)</span>
     }
 
+    // obtener el ultimo bloque es en tiempo constante
+    // actualizar el monto medio y borrar la transaccion tiene complejidad O(logn)
     public void hackearTx(){
-<span class="fc" id="L43">        Bloque ultimoBloque = this.blockchain.obtenerUltimo();  // O(1)</span>
-        // actualizo el monto medio y borro la transaccion
-<span class="fc" id="L45">        Transaccion t = ultimoBloque.borrarMayorTransaccion();  // O(logn)</span>
+<span class="fc" id="L57">        Bloque ultimoBloque = this.blockchain.obtenerUltimo();  // O(1)</span>
+
+        // sacar el maximo de una cola de prioridad O(logn)
+        // borrar un nodo de la lista a través del handle O(1)
+        // actualizar el monto medio O(1)
+<span class="fc" id="L62">        Transaccion t = ultimoBloque.borrarMayorTransaccion();  // O(logn)</span>
+        
         // actualizo saldos
-<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (t.esDeCreacion()) {</span>
-<span class="fc" id="L48">            saldos.actualizarSaldo(t.id_vendedor(), -t.monto());    // O(logP)</span>
-<span class="fc" id="L49">        } else {</span>
-<span class="fc" id="L50">            saldos.actualizarSaldo(t.id_comprador(), t.monto());    // O(logP)</span>
-<span class="fc" id="L51">            saldos.actualizarSaldo(t.id_vendedor(), -t.monto());    // O(logP)</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (t.esDeCreacion()) {</span>
+<span class="fc" id="L66">            saldos.actualizarSaldo(t.id_vendedor(), -t.monto());    // O(logP)</span>
+        } else {
+<span class="fc" id="L68">            saldos.actualizarSaldo(t.id_comprador(), t.monto());    // O(logP)</span>
+<span class="fc" id="L69">            saldos.actualizarSaldo(t.id_vendedor(), -t.monto());    // O(logP)</span>
         }
 
         // los tests piden que se actualicen ambos saldos, 
         // haciendo que solo el vendedor pierda el dinero, &quot;se lo lleva el hacker&quot;, no pasan
-<span class="fc" id="L56">    }</span>
-
+<span class="fc" id="L74">    }</span>
 }
 
 

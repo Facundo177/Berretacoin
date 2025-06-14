@@ -31,8 +31,8 @@ public class UsuarioTests {
         assertTrue(usuario1.compareTo(usuario2) > 0);
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-        usuario1.compareTo(usuario3);
-    });
+            usuario1.compareTo(usuario3);
+        });
         // Verificar el mensaje de la excepción
         assertEquals("No puede compararse con null", exception.getMessage());
     }
@@ -53,5 +53,15 @@ public class UsuarioTests {
         assertTrue(usuario1.equals(usuario2));
         assertFalse(usuario1 == usuario2);
         assertTrue(usuario1.equals(usuario1));
+
+        usuario2.setSaldo(20);
+
+        assertFalse(usuario1.equals(usuario2));
+
+        Transaccion transaccion = new Transaccion(0, 0, 1, 1);
+
+        assertFalse(usuario1.equals(null));
+        assertFalse(usuario1.equals(transaccion));
+        
     }
 }

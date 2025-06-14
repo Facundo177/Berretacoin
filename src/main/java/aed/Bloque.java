@@ -1,25 +1,29 @@
 package aed;
 
+import aed.Heap.Tupla;
 import aed.ListaEnlazadaDoble.Nodo;
 
 public class Bloque {
     private ListaEnlazadaDoble<Transaccion> transaccionesOrdenadasPorId;
-    private ColaDePrioridad<NodoHeap> transaccionesOrdenadasPorMonto;
+    private Heap<Transaccion> transaccionesOrdenadasPorMonto;
+
+    // private ColaDePrioridad<NodoHeap> a;
+
+
     private int sumaMontos;
     private int cantTransacciones; 
 
 public Bloque(Transaccion[] transacciones){
     this.transaccionesOrdenadasPorId = new ListaEnlazadaDoble<>();
-    this.transaccionesOrdenadasPorMonto = new ColaDePrioridad<>(transacciones.length);
+    this.transaccionesOrdenadasPorMonto = new Heap<>(transacciones.length);
     this.sumaMontos = 0;
     this.cantTransacciones = 0;
             
     for (int i = 0; i < transacciones.length; i++) {                                // O(n)
         Transaccion t = transacciones[i].copiar();                                  // O(1)
-        Nodo nodo = this.transaccionesOrdenadasPorId.agregarAtras(t);               // O(1)
-        NodoHeap nodoHeap = new NodoHeap(t, nodo);                                  // O(1)
-        nodo.handle = nodoHeap;                                                     // O(1)
-        this.transaccionesOrdenadasPorMonto.agregarRapido(nodoHeap);                // O(1)
+        Handle handle = this.transaccionesOrdenadasPorId.agregarAtras(t);           // O(1)
+        
+        this.transaccionesOrdenadasPorMonto.agregarRapidoConHandle(t, handle);      // O(1)
         this.sumaMontos += transacciones[i].id_comprador() == 0 ? 0 : transacciones[i].monto();
         this.cantTransacciones += transacciones[i].id_comprador() == 0 ? 0 : 1;
     
@@ -46,21 +50,21 @@ public Bloque(Transaccion[] transacciones){
     }
 
     public Transaccion mayorTransaccion(){
-        return this.transaccionesOrdenadasPorMonto.maximo().transaccion;
+        return this.transaccionesOrdenadasPorMonto.maximo();
     }
 
     public Transaccion borrarMayorTransaccion(){
         // Borro la transaccion de la cola de prioridad
-        NodoHeap nodoHeap = this.transaccionesOrdenadasPorMonto.sacarMaximo();
-        Nodo nodoLista = nodoHeap.handle;
-        Transaccion maxima = nodoHeap.transaccion;
+        Tupla max = this.transaccionesOrdenadasPorMonto.sacarMaximo();
+        Handle handle = max.getHandle();
+        Transaccion maxima = (Transaccion) max.getElem();
 
         // actualizo los valores usados en el monto medio
         this.sumaMontos -= maxima.id_comprador() == 0 ? 0 : maxima.monto();
         this.cantTransacciones -= maxima.id_comprador() == 0 ? 0 : 1;
 
         // Borro la transaccion de la lista
-        this.transaccionesOrdenadasPorId.eliminarNodo(nodoLista);
+        this.transaccionesOrdenadasPorId.eliminarNodo(handle);
 
         return maxima;
     }
